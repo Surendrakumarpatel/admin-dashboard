@@ -1,0 +1,58 @@
+.home {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    width: 70%;
+    top: 8%;
+    left: 20%;
+
+}
+.engineeringData{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+.header{
+   text-transform: uppercase;
+   background-color: #1976d2;
+  font-weight: bold;
+ 
+}
+
+.avatar-and-name {
+    display: flex;
+    border-radius: 15px;
+}
+
+.box {
+    height: 150px !important;
+    width: 300px;
+    padding: 1rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.box>.avatar-and-name>h1 {
+    padding-top: 0.5rem;
+    margin-left: 0.5rem;
+    font-size: 17px;
+
+}
+.user-contact{
+    margin-top: 1rem;
+}
+.user-contact>p{
+    color: gray;
+    font-family: 'Open Sans', sans-serif;
+    
+}
+.user-contact>p>span{
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+}
+.total-students>h1{
+    font-size: 17px;
+}
+.total-students>p{
+    margin-top: 0.5rem;
+}

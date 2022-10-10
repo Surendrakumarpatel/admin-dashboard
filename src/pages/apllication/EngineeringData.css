@@ -1,0 +1,14 @@
+.engineeringData{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    margin: auto;
+}
+.header{
+   text-transform: uppercase;
+   background-color: #1976d2;
+  font-weight: bold;
+ 
+}
+ 
