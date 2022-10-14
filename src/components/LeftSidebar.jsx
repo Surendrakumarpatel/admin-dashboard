@@ -2,6 +2,13 @@ import { NavLink } from "react-router-dom";
 import { FaBars, FaHome, FaLock,FaUser } from "react-icons/fa";
 import { GrAnnounce} from 'react-icons/gr';
 import {VscFeedback} from 'react-icons/vsc';
+import {MdEngineering} from 'react-icons/md';
+import {FaHandHoldingMedical} from 'react-icons/fa';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import {RiShieldStarFill} from "react-icons/ri";
+import {HiDocumentDownload} from "react-icons/hi";
+import CampaignIcon from '@mui/icons-material/Campaign';
+import {BsFillFileEarmarkImageFill} from 'react-icons/bs';
 import {AiOutlineAppstore,AiTwotoneFileExclamation } from "react-icons/ai";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -15,7 +22,7 @@ const routes = [
   {
     path: "/testimonial",
     name: "Testimonial",
-    icon: <VscFeedback/>,
+    icon: <RateReviewIcon fontSize="small"/>,
   },
   // application
   {
@@ -26,12 +33,12 @@ const routes = [
       {
         path: "/application/engineering",
         name: "Engineering",
-        icon: <FaUser />,
+        icon: <MdEngineering/>,
       },
       {
         path: "/application/medical",
         name: "Medical",
-        icon: <FaLock />,
+        icon: <FaHandHoldingMedical/>,
       },
        
     ],
@@ -40,17 +47,17 @@ const routes = [
   {
     path: "/file-manager", 
     name: "Admit Card",  
-    icon: <AiTwotoneFileExclamation />,
+    icon: <HiDocumentDownload/>,
     subRoutes: [
       {
         path: "/admitcard/engineering",
         name: "Engineering",
-        icon: <FaUser />,
+        icon: <MdEngineering/>,
       },
       {
         path: "/admitcard/medical",
         name: "Medical",
-        icon: <FaLock />,
+        icon: <FaHandHoldingMedical/>,
       },
        
     ],
@@ -59,17 +66,17 @@ const routes = [
   {
     path: "/file-manager", 
     name: "Result",  
-    icon: <AiTwotoneFileExclamation />,
+    icon: <RiShieldStarFill/>,
     subRoutes: [
       {
         path: "/result/engineering",
         name: "Engineering",
-        icon: <FaUser />,
+        icon: <MdEngineering/>,
       },
       {
         path: "/result/medical",
         name: "Medical",
-        icon: <FaLock />,
+        icon: <FaHandHoldingMedical/>,
       },
        
     ],
@@ -78,17 +85,17 @@ const routes = [
   {
     path: "/file-manager",
     name: "Counselling",
-    icon: <GrAnnounce/>,
+    icon: <CampaignIcon  />,
     subRoutes: [
       {
         path: "/counselling/engineering",
         name: "Engineering",
-        icon: <FaUser />,
+        icon: <MdEngineering/>,
       },
       {
         path: "/counselling/medical",
         name: "Medical",
-        icon: <FaLock />,
+        icon: <FaHandHoldingMedical/>,
       },
       
     ],
@@ -96,7 +103,7 @@ const routes = [
   {
     path: "/banner",
     name: "Banner",
-    icon: <VscFeedback/>,
+    icon: <BsFillFileEarmarkImageFill/>,
   },
  
 ];

@@ -5,28 +5,28 @@ import NextPlanIcon from '@mui/icons-material/NextPlan';
 import axios from "axios";
  
 const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/setBannerAPI";
-// const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
+const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
 function Banner() {
     const [banner, setBanner] = React.useState({
-         banner_url: ''
+         image: ''
     });
     const changeEventHandler = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setBanner({...banner, [name]: value });
-
+        setBanner(e.target.files[0]);
+        // const name = e.target.name;
+        // const value = e.target.value;
+        // setBanner({...banner, [name]: value });
     }
     const submitData = async (e) => {
         e.preventDefault();
         console.log(banner);
-        await axios.post(url, JSON.stringify(banner)).then((res) => {
+        await axios.post(uploadUrl, JSON.stringify(banner)).then((res) => {
             console.log(res.data);
         }).catch((err) => {
             console.log(err);
         })
         setBanner({
-            banner_url: ''
+            image: ''
         });
     }
 
@@ -39,12 +39,12 @@ function Banner() {
                     <NextPlanIcon className="next-icons" />
                 </div>
             </div>
-            <form onSubmit={submitData} method='POST'>
+            <form enctype="multipart/form-data" onSubmit={submitData}  method='POST'>
                 <div className='upload'>
                     Banner
                     <input
-                        name='banner_url'
-                        value={banner.banner_url}
+                        name='image'
+                        value={banner.image}
                         onChange={changeEventHandler}
                         type="file"
                         className = "hide_file" />

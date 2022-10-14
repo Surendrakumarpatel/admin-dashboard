@@ -44,6 +44,9 @@ function Medical(){
             status:"0"
         })
     }
+    const goMedData = ()=>{
+        navigate("/counselling/medical/medData");
+    }
      
     return (
 
@@ -51,7 +54,7 @@ function Medical(){
             <div className="top-content">
                 <h1>Create Exams</h1>
                 <div>
-                   <NextPlanIcon className="next-icons" />
+                   <NextPlanIcon onClick = {goMedData} className="next-icons" />
                 </div>
             </div>
             <form onSubmit={submitData}>
@@ -126,9 +129,8 @@ function Medical(){
                         value={formData.college_logo}
                         onChange={changeEventHandler}
                         type="file"
-                        className="hide_file" />
+                        className="hide_file"/>
                 </div>
-                 
                 <Button type='submit' variant="contained">Submit</Button>
             </form>
         </div>

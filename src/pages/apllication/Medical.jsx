@@ -4,12 +4,13 @@ import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import MenuItem from '@mui/material/MenuItem';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/SetMedAPPDataAPI";
 
 function Medical() {
+  const navigate = useNavigate();
     const [formData, setFormData] = React.useState({
         college_name: "",
         college_logo: "",
@@ -47,6 +48,10 @@ function Medical() {
             apply_link: ""
         })
     }
+    const goMedDataPage = ()=>{
+       navigate("/application/medical/medicalData");
+    }
+     
 
     return (
 
@@ -54,7 +59,7 @@ function Medical() {
             <div className="top-content">
                 <h1>Create Exams</h1>
                 <div>
-                    <NextPlanIcon className="next-icons" />
+                    <NextPlanIcon onClick = {goMedDataPage} className="next-icons" />
                 </div>
             </div>
             <form onSubmit={submitMedicalData}>

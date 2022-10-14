@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import "./EngineeringData.css";
+// import "./EngineeringData.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,28 +9,38 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-// import DeleteIcon from '@mui/icons-material/Delete';
-// import IconButton from '@mui/material/IconButton';
-// import Tooltip from '@mui/material/Tooltip';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function EngineeringData() {
     const [apiData, setApiData] = useState([]);
     useEffect(() => {
-        axios.get("https://kalkaprasad.com/careerbanao/index.php/APIBase/getApplicationDetailsEng")
+        axios.get("https://kalkaprasad.com/careerbanao/index.php/APIBase/getAdmitEng")
             .then((getData) => {
                 console.log(getData.data);
                 setApiData(getData.data);
             })
     },);
-    const del = async (id) => {
-        await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/DeleteApplicationEngDataAPI?id=${id}`).then((res, req) => {
-            window.location.reload(false);
-        }).catch((err) => {
+    const del = async (id)=>{
+        await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/DeleteApplicationEngDataAPI?id=${id}`).then((res,req)=>{
+            // toast.success('Deleted Successfully!', {
+            //     position: "top-center",
+            //     autoClose: 5000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     progress: undefined,
+            //     theme: "light",
+            // });    
+    }).catch((err)=>{
+            console.log(err);
             alert("Server down please try after sometime!")
         });
-    }
+    } 
     return (
+        <>
         <div className='engineeringData'>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -56,14 +66,12 @@ function EngineeringData() {
                                         <TableCell align="center">{items.college_address}</TableCell>
                                         <TableCell align="center">{items.college_category}</TableCell>
                                         <TableCell align="center">{items.Last_date}</TableCell>
-                                        <TableCell align="center">
-                                            <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
-                                                style={{
-                                                    color: "red",
-                                                    cursor: "pointer"
-                                                }}
-                                            />
-                                            </TableCell>
+                                        <TableCell align="center"><DeleteForeverIcon titleAccess='Delete' onClick={()=> del(items.id)}
+                                            style={{
+                                                color: "red",
+                                                cursor: "pointer"
+                                            }}
+                                        /></TableCell>
                                     </TableRow>
                                 )
                             })
@@ -72,6 +80,9 @@ function EngineeringData() {
                 </Table>
             </TableContainer>
         </div>
+        <ToastContainer />
+        </>
+        
     )
 }
 

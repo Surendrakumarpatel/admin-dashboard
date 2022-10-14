@@ -10,6 +10,8 @@ import axios from "axios";
 const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/setCounsEngAPI";
 
 function Engineering() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = React.useState({
         college_name: "",
         college_logo: "",
@@ -43,6 +45,10 @@ function Engineering() {
             status:"0"
         })
     }
+    const goEngData = ()=>{
+         navigate("/counselling/engineering/engData");
+    }
+
 
     return (
 
@@ -50,7 +56,7 @@ function Engineering() {
             <div className="top-content">
                 <h1>Create Exams</h1>
                 <div>
-                    <NextPlanIcon className="next-icons" />
+                    <NextPlanIcon onClick = {goEngData} className="next-icons"/>
                 </div>
             </div>
             <form onSubmit={submitData}>
@@ -89,7 +95,7 @@ function Engineering() {
 
                     <TextField
                         style={{ margin: "0.5rem" }}
-                        label="Lates News"
+                        label="Latest News"
                         id="outlined-size-small"
                         size="small"
                         name='lates_news'

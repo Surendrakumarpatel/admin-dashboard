@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/getHomeDataAPI";
 
@@ -21,17 +23,27 @@ function UserData() {
                 console.log(getData.data);
                 setApiData(getData.data);
             })
-    }, []);
+    },);
     const del = async (id)=>{
         await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/DeleteHomeDataAPI?id=${id}`).then((res,req)=>{
-            window.location.reload(false);
-        }).catch((err)=>{
+            toast.success('Deleted Successfully!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });    
+    }).catch((err)=>{
             alert("Server down please try after sometime!")
         });
     } 
 
 
     return (
+        <>
         <div className='engineeringData'>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -59,7 +71,7 @@ function UserData() {
                                         <TableCell align="center">{items.phone}</TableCell>
                                         <TableCell align="center">{items.comment}</TableCell>
                                         <TableCell align="center">{items.type}</TableCell>
-                                        <TableCell align="center" ><DeleteForeverIcon onClick={()=> del(items.id)}
+                                        <TableCell align="center" ><DeleteForeverIcon titleAccess='Delete' onClick={()=> del(items.id)}
                                             style={{
                                                 color: "red",
                                                 cursor: "pointer"
@@ -74,6 +86,9 @@ function UserData() {
                 </Table>
             </TableContainer>
         </div>
+        <ToastContainer />
+        </>
+        
     )
 }
 

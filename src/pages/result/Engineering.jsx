@@ -1,11 +1,11 @@
 import React from 'react';
-// import "./Engineering.css";
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import MenuItem from '@mui/material/MenuItem';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+
 
 const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/setResultEngAPI";
 
@@ -40,6 +40,10 @@ function Engineering() {
             web_link: ""
         })
     }
+    const goEngResultDataPage = ()=>{
+        navigate("/result/engineering/EngData");
+    }
+
      
     return (
 
@@ -47,7 +51,7 @@ function Engineering() {
             <div className="top-content">
                 <h1>Create Exams</h1>
                 <div>
-                   <NextPlanIcon className="next-icons" />
+                   <NextPlanIcon onClick = {goEngResultDataPage} className="next-icons" />
                 </div>
             </div>
             <form onSubmit={submitData}>

@@ -40,14 +40,16 @@ function Medical() {
             web_link: ""
         })
     }
+    const goMedResultDataPage = ()=>{
+        navigate("/result/medical/MedData");
+    }
      
     return (
-
         <div className='application-engineering'>
             <div className="top-content">
                 <h1>Create Exams</h1>
                 <div>
-                   <NextPlanIcon className="next-icons" />
+                   <NextPlanIcon onClick = {goMedResultDataPage} className="next-icons" />
                 </div>
             </div>
             <form onSubmit={submitData}>

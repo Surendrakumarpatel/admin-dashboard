@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import "./EngineeringData.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,15 +8,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-// import DeleteIcon from '@mui/icons-material/Delete';
-// import IconButton from '@mui/material/IconButton';
-// import Tooltip from '@mui/material/Tooltip';
-
+ 
 
 function EngineeringData() {
     const [apiData, setApiData] = useState([]);
     useEffect(() => {
-        axios.get("https://kalkaprasad.com/careerbanao/index.php/APIBase/getApplicationDetailsEng")
+        axios.get("https://kalkaprasad.com/careerbanao/index.php/APIBase/getCounslingDetails")
             .then((getData) => {
                 console.log(getData.data);
                 setApiData(getData.data);
@@ -25,7 +21,6 @@ function EngineeringData() {
     },);
     const del = async (id) => {
         await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/DeleteApplicationEngDataAPI?id=${id}`).then((res, req) => {
-            window.location.reload(false);
         }).catch((err) => {
             alert("Server down please try after sometime!")
         });
@@ -38,9 +33,8 @@ function EngineeringData() {
                         <TableRow className='header'>
                             <TableCell style={{ color: "#fff", }} align='center'>id</TableCell>
                             <TableCell style={{ color: "#fff", }} align='center'>College Name</TableCell>
-                            <TableCell style={{ color: "#fff", }} align="center">College Address</TableCell>
-                            <TableCell style={{ color: "#fff", }} align='center'>Category</TableCell>
-                            <TableCell style={{ color: "#fff", }} align="center">Last Date</TableCell>
+                            <TableCell style={{ color: "#fff", }} align="center">News Event</TableCell>
+                            <TableCell style={{ color: "#fff", }} align="center">Latest News</TableCell>
                             <TableCell style={{ color: "#fff", }} align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -53,9 +47,8 @@ function EngineeringData() {
                                     >
                                         <TableCell align="center">{items.id}</TableCell>
                                         <TableCell align='center'>{items.college_name}</TableCell>
-                                        <TableCell align="center">{items.college_address}</TableCell>
-                                        <TableCell align="center">{items.college_category}</TableCell>
-                                        <TableCell align="center">{items.Last_date}</TableCell>
+                                        <TableCell align="center">{items.lates_news}</TableCell>
+                                        <TableCell align="center">{items.new_event}</TableCell>
                                         <TableCell align="center">
                                             <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
                                                 style={{
