@@ -8,26 +8,29 @@ const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/setBannerAPI"
 const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
 function Banner() {
-    const [banner, setBanner] = React.useState({
-         image: ''
-    });
+    const [banner, setBanner] = React.useState();
     const changeEventHandler = (e) => {
-        setBanner(e.target.files[0]);
-        // const name = e.target.name;
-        // const value = e.target.value;
-        // setBanner({...banner, [name]: value });
+        const files  = e.target.files;
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(files[0]);
+
+        fileReader.onload = (event) => {
+            setBanner({
+                img: event.target.result,
+            })
+        }
     }
+     
     const submitData = async (e) => {
         e.preventDefault();
-        console.log(banner);
         await axios.post(uploadUrl, JSON.stringify(banner)).then((res) => {
+            console.log(banner);
             console.log(res.data);
         }).catch((err) => {
             console.log(err);
         })
-        setBanner({
-            image: ''
-        });
+         
+
     }
 
     return (
@@ -43,8 +46,8 @@ function Banner() {
                 <div className='upload'>
                     Banner
                     <input
-                        name='image'
-                        value={banner.image}
+                        // name='image'
+                        // value={banner.image}
                         onChange={changeEventHandler}
                         type="file"
                         className = "hide_file" />

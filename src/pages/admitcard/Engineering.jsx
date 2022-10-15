@@ -107,8 +107,8 @@ function Engineering() {
                             id="standard-select-currency"
                             select
                             label="Category"
-                            name='category'
-                            value={formData.category}
+                            name='college_category'
+                            value={formData.college_category}
                             onChange={changeEventHandler}
                             helperText="Please select your currency"
                             variant="standard"

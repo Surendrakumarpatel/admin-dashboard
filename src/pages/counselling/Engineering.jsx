@@ -1,11 +1,12 @@
 import React from 'react';
-// import "./Engineering.css";
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
-import MenuItem from '@mui/material/MenuItem';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/setCounsEngAPI";
 
@@ -31,6 +32,16 @@ function Engineering() {
         e.preventDefault();
         console.log(formData);
         axios.post(url, JSON.stringify(formData)).then((res) => {
+            toast.success('Created Successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
             console.log(res.data);
         }).catch((err) => {
             console.log(err);
@@ -51,7 +62,7 @@ function Engineering() {
 
 
     return (
-
+        <>
         <div className='application-engineering'>
             <div className="top-content">
                 <h1>Create Exams</h1>
@@ -59,7 +70,7 @@ function Engineering() {
                     <NextPlanIcon onClick = {goEngData} className="next-icons"/>
                 </div>
             </div>
-            <form onSubmit={submitData}>
+            <form onSubmit={submitData} >
                 <div>
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -72,14 +83,13 @@ function Engineering() {
                     />
                     <TextField
                         style={{ margin: "0.5rem" }}
-                        label="College Address"
+                        label="Web Link"
                         id="outlined-size-small"
                         size="small"
-                        name='college_address'
-                        value={formData.college_address}
+                        name='web_link'
+                        value={formData.web_link}
                         onChange={changeEventHandler}
                     />
-
                 </div>
 
                 <div>
@@ -103,18 +113,6 @@ function Engineering() {
                         onChange={changeEventHandler}
                     />
                 </div>
-
-                <div>
-                    <TextField
-                        style={{ margin: "0.5rem" }}
-                        label="Web Link"
-                        id="outlined-size-small"
-                        size="small"
-                        name='web_link'
-                        value={formData.web_link}
-                        onChange={changeEventHandler}
-                    />
-                </div>
                 <label className='intro-of-college'>Introduction:</label>
                 <textarea
                     rows='4'
@@ -135,6 +133,10 @@ function Engineering() {
                 <Button type='submit' variant="contained">Submit</Button>
             </form>
         </div>
+        <ToastContainer/>
+        </>
+
+        
     )
 }
 

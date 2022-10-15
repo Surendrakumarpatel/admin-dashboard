@@ -23,17 +23,17 @@ function EngineeringData() {
             })
     },);
     const del = async (id)=>{
-        await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/DeleteApplicationEngDataAPI?id=${id}`).then((res,req)=>{
-            // toast.success('Deleted Successfully!', {
-            //     position: "top-center",
-            //     autoClose: 5000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            //     theme: "light",
-            // });    
+        await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/deleteAdmitCardEngAPI?id=${id}`).then((res,req)=>{
+            toast.success('Deleted Successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });    
     }).catch((err)=>{
             console.log(err);
             alert("Server down please try after sometime!")

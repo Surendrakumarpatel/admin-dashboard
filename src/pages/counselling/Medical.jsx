@@ -1,11 +1,12 @@
 import React from 'react';
-// import "./Engineering.css";
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
-import MenuItem from '@mui/material/MenuItem';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/setCounsMedAPI";
 
@@ -30,6 +31,16 @@ function Medical(){
         e.preventDefault();
         console.log(formData);
         await axios.post(url, JSON.stringify(formData)).then((res)=>{ 
+            toast.success('Created Successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
             console.log(res.data);
         }).catch((err)=>{
            console.log(err);
@@ -49,7 +60,7 @@ function Medical(){
     }
      
     return (
-
+        <>
         <div className='application-engineering'>
             <div className="top-content">
                 <h1>Create Exams</h1>
@@ -68,13 +79,13 @@ function Medical(){
                         value={formData.college_name}
                         onChange={changeEventHandler}
                     />
-                    <TextField
+                     <TextField
                         style={{ margin: "0.5rem" }}
-                        label="College Address"
+                        label="Web Link"
                         id="outlined-size-small"
                         size="small"
-                        name='college_address'
-                        value={formData.college_address}
+                        name='web_link'
+                        value={formData.web_link}
                         onChange={changeEventHandler}
                     />
 
@@ -101,19 +112,7 @@ function Medical(){
                         onChange={changeEventHandler}
                     />
                 </div>
-
-                <div>
-                    <TextField
-                        style={{ margin: "0.5rem" }}
-                        label="Web Link"
-                        id="outlined-size-small"
-                        size="small"
-                        name='web_link'
-                        value={formData.web_link}
-                        onChange={changeEventHandler}
-                    />
-                    
-                </div>
+ 
                 <label className='intro-of-college'>Introduction:</label>
                 <textarea
                     rows='4'
@@ -134,6 +133,9 @@ function Medical(){
                 <Button type='submit' variant="contained">Submit</Button>
             </form>
         </div>
+        <ToastContainer/>
+        </>
+        
     )
 }
 

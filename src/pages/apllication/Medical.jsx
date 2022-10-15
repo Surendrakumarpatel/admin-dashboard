@@ -6,6 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/SetMedAPPDataAPI";
 
@@ -32,6 +34,16 @@ function Medical() {
         e.preventDefault();
         console.log(formData);
         await axios.post(url, JSON.stringify(formData)).then((res) => {
+            toast.success('Created Successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
             console.log(res.data);
         }).catch((err) => {
             console.log(err);
@@ -54,7 +66,7 @@ function Medical() {
      
 
     return (
-
+        <>
         <div className='application-engineering'>
             <div className="top-content">
                 <h1>Create Exams</h1>
@@ -165,6 +177,10 @@ function Medical() {
                 <Button type='submit' variant="contained">Submit</Button>
             </form>
         </div>
+        <ToastContainer/>
+        </>
+
+        
     )
 }
 

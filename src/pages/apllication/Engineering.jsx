@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/SetaEngAPPDataAPI";
+const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/SetEngAPPDataAPI";
 
 function Engineering() {
     const navigate = useNavigate();

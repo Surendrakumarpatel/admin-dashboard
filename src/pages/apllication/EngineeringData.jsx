@@ -9,10 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-// import DeleteIcon from '@mui/icons-material/Delete';
-// import IconButton from '@mui/material/IconButton';
-// import Tooltip from '@mui/material/Tooltip';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+ 
 
 function EngineeringData() {
     const [apiData, setApiData] = useState([]);
@@ -25,12 +24,23 @@ function EngineeringData() {
     },);
     const del = async (id) => {
         await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/DeleteApplicationEngDataAPI?id=${id}`).then((res, req) => {
-            window.location.reload(false);
-        }).catch((err) => {
+            toast.success('Deleted Successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });    
+    }).catch((err) => {
             alert("Server down please try after sometime!")
         });
     }
     return (
+
+        <>
         <div className='engineeringData'>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -72,6 +82,9 @@ function EngineeringData() {
                 </Table>
             </TableContainer>
         </div>
+        <ToastContainer />
+        </>
+        
     )
 }
 
