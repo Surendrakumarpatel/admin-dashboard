@@ -9,22 +9,25 @@ import axios from "axios";
 import {useForm} from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLocation } from 'react-router-dom';
 import { BaseUrl } from '../baseurl/baseurl';
 
 
-
-const url = `${BaseUrl}/setAdmitCardMedAPI`;
+const url = `${BaseUrl}/updateAdmitCardMedAPI`;
 const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
-function Medical() {
+function UpdateMedicalData() {
+    const location = useLocation();
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
+    const id = location.state.id;
     const [formData, setFormData] = React.useState({
-        college_name: "",
-        college_logo: "",
-        college_address: "",
-        college_category: "",
-        web_link: "",
+        id:id,
+        college_name: location.state.college_name,
+        college_logo: location.state.college_logo,
+        college_address: location.state.college_address,
+        college_category: location.state.college_category,
+        web_link: location.state.web_link,
         status:"0"
     });
     const changeEventHandler = (e) => {
@@ -47,6 +50,7 @@ function Medical() {
         console.log(formData);
 
         await axios.post(url, JSON.stringify({
+        id:id,
         college_name: formData.college_name,
         college_logo: res.url,
         college_address: formData.college_address,
@@ -56,7 +60,7 @@ function Medical() {
         })).then((res)=>{ 
             console.log(formData);
             console.log(res.data);
-            toast.success('Created Successfully!', {
+            toast.success('Updated Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -87,7 +91,7 @@ function Medical() {
 <>
  <div className='application-engineering'>
             <div className="top-content">
-                <h1>Create Exams</h1>
+                <h1>Update Medical Data</h1>
                 <div>
                    <NextPlanIcon onClick={goMedData} className="next-icons" />
                 </div>
@@ -152,4 +156,4 @@ function Medical() {
     )
 }
 
-export default Medical
+export default UpdateMedicalData

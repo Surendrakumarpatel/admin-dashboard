@@ -7,20 +7,24 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
+import { useLocation } from 'react-router-dom';
 import { BaseUrl } from '../baseurl/baseurl';
 
-const url = `${BaseUrl}/SetTestimonialDataAPI`;
+const url = `${BaseUrl}/updateTestimonial`;
 const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
-function Testimonial() {
+function UpdateTestimonial() {
+    const location = useLocation();
+    const id = location.state.id;
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
 
     const [testimonial, setTestimonial] = useState({
-        name: "",
-        college_name: "",
-        feedback: "",
-        student_image:""
+        id:id,
+        name: location.state.name,
+        college_name: location.state.college_name,
+        feedback: location.state.feedback,
+        student_image:location.state.student_image
     });
     const changeEventHandler = (e) => {
         const name = e.target.name;
@@ -42,13 +46,14 @@ function Testimonial() {
 
         console.log(testimonial);
         await axios.post(url, JSON.stringify({
+            id:testimonial.id,
             name:testimonial.name,
             college_name:testimonial.college_name,
             feedback:testimonial.feedback,
             student_image:res.url,
         })).then((res) => {
             console.log(res.data);
-            toast.success('Created Successfully!', {
+            toast.success('Updated Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -76,7 +81,7 @@ function Testimonial() {
         <>
             <div className='application-engineering'>
                 <div className="top-content">
-                    <h1>Testimonial</h1>
+                    <h1>Update Testimonial Data</h1>
                     <div>
                         <NextPlanIcon onClick={goTestimonialPage} className="next-icons" />
                     </div>
@@ -116,7 +121,6 @@ function Testimonial() {
                         Student Image
                         <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
                     </div>
-                    {/* <img style={{ width: "100px", height: "100px" }} src={image} alt="alt"></img> */}
                     <Button type='submit' variant="contained">Submit</Button>
                 </form>
             </div>
@@ -126,4 +130,4 @@ function Testimonial() {
     )
 }
 
-export default Testimonial
+export default UpdateTestimonial

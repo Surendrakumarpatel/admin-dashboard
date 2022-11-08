@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import "./EngineeringData.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -14,19 +15,18 @@ import CreateIcon from '@mui/icons-material/Create';
 import { useNavigate } from 'react-router-dom';
 import { BaseUrl } from '../baseurl/baseurl';
 
-
 function MedicalData() {
     const navigate = useNavigate();
     const [apiData, setApiData] = useState([]);
     useEffect(() => {
-        axios.get(`${BaseUrl}/getAdmitMed`)
+        axios.get(`${BaseUrl}/getApplicationDetailsMed`)
             .then((getData) => {
                 console.log(getData.data);
                 setApiData(getData.data);
             })
     },);
     const del = async (id)=>{
-        await axios.post(`${BaseUrl}/deleteAdmitCardMedAPI?id=${id}`).then((res,req)=>{
+        await axios.post(`${BaseUrl}/DeleteApplicationMedDataAPI?id=${id}`).then((res,req)=>{
             toast.success('Deleted Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -36,22 +36,24 @@ function MedicalData() {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-            });    
+            });
     }).catch((err)=>{
-            console.log(err);
             alert("Server down please try after sometime!")
         });
-    }
-    const openForm = (id,college_name,college_logo,college_address,college_category,web_link) => {
-        navigate('/dashboard/admitcard/medical/update',{state:{
+    } 
+    const openForm = (id,college_name,college_logo,college_category,college_address,Last_date,latest_news,news_event,Introduction,apply_link)=>{
+        navigate('/dashboard/application/medical/update',{state:{
             id:id,
             college_name:college_name,
             college_logo:college_logo,
             college_address:college_address,
             college_category:college_category,
-            web_link:web_link
-        }});
-    } 
+            Last_date:Last_date,
+            latest_news:latest_news,
+            news_event:news_event,
+            Introduction:Introduction,
+            apply_link:apply_link}});
+    }
     return (
         <>
         <div className='engineeringData'>
@@ -85,22 +87,26 @@ function MedicalData() {
                                                 color: "red",
                                                 cursor: "pointer"
                                             }}
-                                        />
-                                         <CreateIcon titleAccess='Update' onClick={() => openForm(
-                                                    items.id,
-                                                    items.college_name,
-                                                    items.college_logo,
-                                                    items.college_address,
-                                                    items.college_category,
-                                                    items.web_link                  
-                                                    )}
-                                                    style={{
-                                                        color: "orange",
-                                                        cursor: "pointer",
-                                                        marginLeft:"10px"
-                                                    }}
-                                                />
-                                                </TableCell>
+                                            />
+                                            <CreateIcon titleAccess='Update' onClick={() => openForm(
+                                                items.id,
+                                                items.college_name,
+                                                items.college_category,
+                                                items.college_logo,
+                                                items.college_address,
+                                                items.Last_date,
+                                                items.latest_news,
+                                                items.news_event,
+                                                items.Introduction,
+                                                items.apply_link,
+                                                )}
+                                                style={{
+                                                    color: "orange",
+                                                    cursor: "pointer",
+                                                    marginLeft:"10px"
+                                                }}
+                                            />
+                                        </TableCell>
                                     </TableRow>
                                 )
                             })
@@ -109,7 +115,7 @@ function MedicalData() {
                 </Table>
             </TableContainer>
         </div>
-        <ToastContainer />
+        <ToastContainer/>
         </>
         
     )

@@ -1,29 +1,30 @@
 import React from 'react';
-// import "./Engineering.css";
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import MenuItem from '@mui/material/MenuItem';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import {useForm} from 'react-hook-form'
-import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BaseUrl } from '../baseurl/baseurl';
 
-const url = `${BaseUrl}/setAdmitCardEngAPI`;
+const url = `${BaseUrl}/setResultEngAPI`;
 const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
-function Engineering() {
+function UpdateEngineeringData() {
+    const location = useLocation();
+    const id = location.state.id;
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const [formData, setFormData] = React.useState({
-        college_name: "",
-        college_logo: "",
-        college_address: "",
-        college_category: "",
-        web_link: "",
-        status: "0"
+        college_name: location.state.college_name,
+        college_logo: location.state.college_logo,
+        college_address: location.state.college_address,
+        college_category: location.state.college_category,
+        web_link: location.state.web_link,
+
     });
     const changeEventHandler = (e) => {
         const name = e.target.name;
@@ -31,7 +32,7 @@ function Engineering() {
         setFormData({ ...formData, [name]: value });
     }
 
-    const submitData = async (data,e) => {
+    const submitData = async (data, e) => {
         e.preventDefault();
         console.log(data.avatar[0]);
         const formValue = new FormData();
@@ -45,16 +46,16 @@ function Engineering() {
         console.log(formData);
 
         await axios.post(url, JSON.stringify({
-        college_name: formData.college_name,
-        college_logo: res.url,
-        college_address: formData.college_address,
-        college_category: formData.college_category,
-        web_link: formData.web_link,
-        status: formData.status
+            id: id,
+            college_name: formData.college_name,
+            college_logo: res.url,
+            college_address: formData.college_address,
+            college_category: formData.college_category,
+            web_link: formData.web_link
         })).then((res) => {
 
             console.log(res.data);
-            toast.success('Created Successfully!', {
+            toast.success('Updated Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -72,22 +73,21 @@ function Engineering() {
             college_logo: "",
             college_address: "",
             college_category: "",
-            web_link: "",
-            status: "0"
+            web_link: ""
         })
     }
-
-    const goEngData = () => {
-        navigate("/dashboard/admitcard/engineering/EngData");
+    const goEngResultDataPage = () => {
+        navigate("/dashboard/result/engineering/EngData");
     }
+
 
     return (
         <>
             <div className='application-engineering'>
                 <div className="top-content">
-                    <h1>Create Exams</h1>
+                    <h1>Update Engineering Data</h1>
                     <div>
-                        <NextPlanIcon onClick={goEngData} className="next-icons" />
+                        <NextPlanIcon onClick={goEngResultDataPage} className="next-icons" />
                     </div>
                 </div>
                 <form onSubmit={handleSubmit(submitData)}>
@@ -100,7 +100,6 @@ function Engineering() {
                             name='college_name'
                             value={formData.college_name}
                             onChange={changeEventHandler}
-                            required
                         />
                         <TextField
                             style={{ margin: "0.5rem" }}
@@ -110,7 +109,6 @@ function Engineering() {
                             name='college_address'
                             value={formData.college_address}
                             onChange={changeEventHandler}
-                            required
                         />
 
                     </div>
@@ -123,7 +121,6 @@ function Engineering() {
                             name='web_link'
                             value={formData.web_link}
                             onChange={changeEventHandler}
-                            required
                         />
                         <TextField
                             id="standard-select-currency"
@@ -134,7 +131,6 @@ function Engineering() {
                             onChange={changeEventHandler}
                             helperText="Please select your currency"
                             variant="standard"
-                            required
                         >
                             <MenuItem value="Government">Government</MenuItem>
                             <MenuItem value="Private">Private</MenuItem>
@@ -143,8 +139,8 @@ function Engineering() {
 
                     <div className='upload'>
                         College Logo
-                        <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
-                    
+                        <input className="hide_file" type="file" {...register("avatar")} style={{ cursor: "pointer" }} accept=".jpeg,.png , .jpg"/>
+
                     </div>
                     <Button type='submit' variant="contained">Submit</Button>
                 </form>
@@ -155,4 +151,4 @@ function Engineering() {
     )
 }
 
-export default Engineering
+export default UpdateEngineeringData

@@ -9,19 +9,22 @@ import Paper from '@mui/material/Paper';
 import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { ToastContainer, toast } from 'react-toastify';
-
+import { useNavigate } from 'react-router-dom';
+import CreateIcon from '@mui/icons-material/Create';
+import { BaseUrl } from '../baseurl/baseurl';
 
 function MedicalData() {
+    const navigate = useNavigate();
     const [apiData, setApiData] = useState([]);
     useEffect(() => {
-        axios.get("https://kalkaprasad.com/careerbanao/index.php/APIBase/getCounslingDetailsMed")
+        axios.get(`${BaseUrl}/getCounslingDetailsMed`)
             .then((getData) => {
                 console.log(getData.data);
                 setApiData(getData.data);
             })
     },);
     const del = async (id) => {
-        await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/deleteCounsMedAPI?id=${id}`).then((res, req) => {
+        await axios.post(`${BaseUrl}/deleteCounsMedAPI?id=${id}`).then((res, req) => {
             toast.success('Deleted Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -36,6 +39,18 @@ function MedicalData() {
             alert("Server down please try after sometime!")
         });
     }
+
+    const openForm = (id,college_name,college_logo,lates_news,new_event,introduction,web_link)=>{
+        navigate('/dashboard/counselling/medical/update',{state:{
+            id:id,
+            college_name:college_name,
+            college_logo:college_logo,
+            lates_news:lates_news,
+            new_event:new_event,
+            introduction:introduction,
+            web_link:web_link
+        }});
+    }
     return (
         <>
         <div className='engineeringData'>
@@ -45,8 +60,8 @@ function MedicalData() {
                         <TableRow className='header'>
                             <TableCell style={{ color: "#fff", }} align='center'>id</TableCell>
                             <TableCell style={{ color: "#fff", }} align='center'>College Name</TableCell>
-                            <TableCell style={{ color: "#fff", }} align="center">News Event</TableCell>
                             <TableCell style={{ color: "#fff", }} align="center">Latest News</TableCell>
+                            <TableCell style={{ color: "#fff", }} align="center">News Event</TableCell>
                             <TableCell style={{ color: "#fff", }} align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -65,7 +80,23 @@ function MedicalData() {
                                                 color: "red",
                                                 cursor: "pointer"
                                             }}
-                                        /></TableCell>
+                                        />
+                                        <CreateIcon titleAccess='Update' onClick={() => openForm(
+                                                items.id,
+                                                items.college_name,                                              
+                                                items.college_logo,
+                                                items.lates_news,
+                                                items.new_event,
+                                                items.introduction,
+                                                items.web_link,
+                                                )}
+                                                style={{
+                                                    color: "orange",
+                                                    cursor: "pointer",
+                                                    marginLeft:"10px"
+                                                }}
+                                            />
+                                            </TableCell>
                                     </TableRow>
                                 )
                             })

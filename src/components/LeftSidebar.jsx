@@ -13,14 +13,16 @@ import {AiOutlineAppstore,AiTwotoneFileExclamation } from "react-icons/ai";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
+import PersonIcon from '@mui/icons-material/Person';
+
 const routes = [
   {
-    path: "/",
+    path: "/dashboard/userdata",
     name: "Dashboard",
     icon: <FaHome />,
   },
   {
-    path: "/testimonial",
+    path: "/dashboard/testimonial",
     name: "Testimonial",
     icon: <RateReviewIcon fontSize="small"/>,
   },
@@ -31,12 +33,12 @@ const routes = [
     icon: <AiOutlineAppstore />,
     subRoutes: [
       {
-        path: "/application/engineering",
+        path: "/dashboard/application/engineering",
         name: "Engineering",
         icon: <MdEngineering/>,
       },
       {
-        path: "/application/medical",
+        path: "/dashboard/application/medical",
         name: "Medical",
         icon: <FaHandHoldingMedical/>,
       },
@@ -50,12 +52,12 @@ const routes = [
     icon: <HiDocumentDownload/>,
     subRoutes: [
       {
-        path: "/admitcard/engineering",
+        path: "/dashboard/admitcard/engineering",
         name: "Engineering",
         icon: <MdEngineering/>,
       },
       {
-        path: "/admitcard/medical",
+        path: "/dashboard/admitcard/medical",
         name: "Medical",
         icon: <FaHandHoldingMedical/>,
       },
@@ -69,12 +71,12 @@ const routes = [
     icon: <RiShieldStarFill/>,
     subRoutes: [
       {
-        path: "/result/engineering",
+        path: "/dashboard/result/engineering",
         name: "Engineering",
         icon: <MdEngineering/>,
       },
       {
-        path: "/result/medical",
+        path: "/dashboard/result/medical",
         name: "Medical",
         icon: <FaHandHoldingMedical/>,
       },
@@ -88,12 +90,12 @@ const routes = [
     icon: <CampaignIcon  />,
     subRoutes: [
       {
-        path: "/counselling/engineering",
+        path: "/dashboard/counselling/engineering",
         name: "Engineering",
         icon: <MdEngineering/>,
       },
       {
-        path: "/counselling/medical",
+        path: "/dashboard/counselling/medical",
         name: "Medical",
         icon: <FaHandHoldingMedical/>,
       },
@@ -101,9 +103,14 @@ const routes = [
     ],
   },
   {
-    path: "/banner",
+    path: "/dashboard/banner",
     name: "Banner",
     icon: <BsFillFileEarmarkImageFill/>,
+  },
+  {
+    path: "/dashboard/userinfo",
+    name: "Login User Info",
+    icon: <PersonIcon/>,
   },
  
 ];

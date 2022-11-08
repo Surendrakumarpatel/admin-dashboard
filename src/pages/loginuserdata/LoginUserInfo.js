@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import "./UserData.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,9 +12,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BaseUrl } from '../baseurl/baseurl';
 
-const url = `${BaseUrl}/getHomeDataAPI`;
+const url = `${BaseUrl}/getUserLoginInfo`;
 
-function UserData() {
+function LoginUserInfo() {
     const [apiData, setApiData] = useState([]);
     useEffect(() => {
         axios.get(url)
@@ -24,22 +23,22 @@ function UserData() {
                 setApiData(getData.data);
             })
     },);
-    const del = async (id) => {
-        await axios.post(`${BaseUrl}/DeleteHomeDataAPI?id=${id}`).then((res, req) => {
-            toast.success('Deleted Successfully!', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }).catch((err) => {
-            alert("Server down please try after sometime!")
-        });
-    }
+    // const del = async (id) => {
+    //     await axios.post(`${BaseUrl}/DeleteHomeDataAPI?id=${id}`).then((res, req) => {
+    //         toast.success('Deleted Successfully!', {
+    //             position: "top-center",
+    //             autoClose: 3000,
+    //             hideProgressBar: false,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "light",
+    //         });
+    //     }).catch((err) => {
+    //         alert("Server down please try after sometime!")
+    //     });
+    // }
 
 
     return (
@@ -52,10 +51,9 @@ function UserData() {
                                 <TableCell style={{ color: "#fff", }} align='center'>Id</TableCell>
                                 <TableCell style={{ color: "#fff", }} align='center'>Name</TableCell>
                                 <TableCell style={{ color: "#fff", }} align="center">Email</TableCell>
-                                <TableCell style={{ color: "#fff", }} align='center'>Phone</TableCell>
-                                <TableCell style={{ color: "#fff", }} align="center">Comment</TableCell>
-                                <TableCell style={{ color: "#fff", }} align="center">Type</TableCell>
-                                <TableCell style={{ color: "#fff", }} align="center">Action</TableCell>
+                                <TableCell style={{ color: "#fff", }} align='center'>Photo URL</TableCell>
+                                <TableCell style={{ color: "#fff", }} align="center">Phone</TableCell>
+                                {/* <TableCell style={{ color: "#fff", }} align="center">Action</TableCell> */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -68,17 +66,16 @@ function UserData() {
                                             <TableCell align="center">{items.id}</TableCell>
                                             <TableCell align='center'>{items.name}</TableCell>
                                             <TableCell align="center">{items.email}</TableCell>
+                                            <TableCell align="center">{items.image_url}</TableCell>
                                             <TableCell align="center">{items.phone}</TableCell>
-                                            <TableCell align="center">{items.comment}</TableCell>
-                                            <TableCell align="center">{items.type}</TableCell>
-                                            <TableCell align="center" >
-                                                <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
+                                            {/* <TableCell align="center" > */}
+                                                {/* <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
                                                     style={{
                                                         color: "red",
                                                         cursor: "pointer"
                                                     }}
-                                                />
-                                            </TableCell>
+                                                /> */}
+                                            {/* </TableCell> */}
                                         </TableRow>
                                     )
                                 })
@@ -94,4 +91,4 @@ function UserData() {
     )
 }
 
-export default UserData
+export default LoginUserInfo

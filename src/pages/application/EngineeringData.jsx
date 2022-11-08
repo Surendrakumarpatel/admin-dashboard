@@ -11,19 +11,23 @@ import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CreateIcon from '@mui/icons-material/Create';
+import {useNavigate} from 'react-router-dom';
+import { BaseUrl } from '../baseurl/baseurl';
+ 
 
-
-function MedicalData() {
+function EngineeringData() {
+    const navigate = useNavigate();
     const [apiData, setApiData] = useState([]);
     useEffect(() => {
-        axios.get("https://kalkaprasad.com/careerbanao/index.php/APIBase/getApplicationDetailsMed")
+        axios.get(`${BaseUrl}/getApplicationDetailsEng`)
             .then((getData) => {
                 console.log(getData.data);
                 setApiData(getData.data);
             })
     },);
-    const del = async (id)=>{
-        await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/DeleteApplicationMedDataAPI?id=${id}`).then((res,req)=>{
+    const del = async (id) => {
+        await axios.post(`${BaseUrl}/DeleteApplicationEngDataAPI?id=${id}`).then((res, req) => {
             toast.success('Deleted Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -33,12 +37,29 @@ function MedicalData() {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-            });
-    }).catch((err)=>{
+            });    
+    }).catch((err) => {
             alert("Server down please try after sometime!")
         });
-    } 
+    }
+
+    // Update API
+    const openForm = (id, cn, cc,cl,ca,ld, ln, ne, intro, al)=>{
+        navigate("/dashboard/application/engineering/update",{state:{
+            id:id,
+            college_name:cn,
+            college_category:cc,
+            college_logo:cl,
+            college_address:ca,
+            last_date:ld,
+            latest_news:ln,
+            new_event:ne,
+            introduction:intro,
+            apply_link:al
+        }});
+    }
     return (
+
         <>
         <div className='engineeringData'>
             <TableContainer component={Paper}>
@@ -65,12 +86,33 @@ function MedicalData() {
                                         <TableCell align="center">{items.college_address}</TableCell>
                                         <TableCell align="center">{items.college_category}</TableCell>
                                         <TableCell align="center">{items.Last_date}</TableCell>
-                                        <TableCell align="center"><DeleteForeverIcon titleAccess='Delete' onClick={()=> del(items.id)}
-                                            style={{
-                                                color: "red",
-                                                cursor: "pointer"
-                                            }}
-                                        /></TableCell>
+                                        <TableCell align="center">
+                                            <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
+                                                style={{
+                                                    color: "red",
+                                                    cursor: "pointer",
+                                                    marginRight:"10px"
+                                                }}
+                                            />
+                                            <CreateIcon titleAccess='Update' onClick={() => openForm(
+                                                items.id,
+                                                items.college_name,
+                                                items.college_category,
+                                                items.college_logo,
+                                                items.college_address,
+                                                items.Last_date,
+                                                items.latest_news,
+                                                items.news_event,
+                                                items.Introduction,
+                                                items.apply_link,
+                                            )}
+                                                style={{
+                                                    color: "orange",
+                                                    cursor: "pointer",
+                                                    marginLeft:"10px"
+                                                }}
+                                            />
+                                            </TableCell>
                                     </TableRow>
                                 )
                             })
@@ -79,10 +121,10 @@ function MedicalData() {
                 </Table>
             </TableContainer>
         </div>
-        <ToastContainer/>
+        <ToastContainer />
         </>
         
     )
 }
 
-export default MedicalData
+export default EngineeringData

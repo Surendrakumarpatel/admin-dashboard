@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import "./EngineeringData.css";
+import React,{useState, useEffect} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,19 +10,23 @@ import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
- 
+import CreateIcon from '@mui/icons-material/Create';
+import { useNavigate } from 'react-router-dom';
+import { BaseUrl } from '../baseurl/baseurl';
 
-function EngineeringData() {
+
+function BannerData() {
+    const navigate = useNavigate();
     const [apiData, setApiData] = useState([]);
     useEffect(() => {
-        axios.get("https://kalkaprasad.com/careerbanao/index.php/APIBase/getApplicationDetailsEng")
+        axios.get(`${BaseUrl}/getBannerAPI`)
             .then((getData) => {
                 console.log(getData.data);
                 setApiData(getData.data);
             })
     },);
     const del = async (id) => {
-        await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/DeleteApplicationEngDataAPI?id=${id}`).then((res, req) => {
+        await axios.post(`${BaseUrl}/deleteBannerAPI?id=${id}`).then((res, req) => {
             toast.success('Deleted Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -37,22 +40,25 @@ function EngineeringData() {
     }).catch((err) => {
             alert("Server down please try after sometime!")
         });
+    } 
+    const openForm = (id,banner_url)=>{
+        navigate('/dashboard/banner/update',{state:{
+            id:id,
+            banner_url:banner_url,
+           }});
     }
-    return (
 
-        <>
+  return (
+    <>
         <div className='engineeringData'>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow className='header'>
                             <TableCell style={{ color: "#fff", }} align='center'>id</TableCell>
-                            <TableCell style={{ color: "#fff", }} align='center'>College Name</TableCell>
-                            <TableCell style={{ color: "#fff", }} align="center">College Address</TableCell>
-                            <TableCell style={{ color: "#fff", }} align='center'>Category</TableCell>
-                            <TableCell style={{ color: "#fff", }} align="center">Last Date</TableCell>
-                            <TableCell style={{ color: "#fff", }} align="center">Action</TableCell>
-                        </TableRow>
+                            <TableCell style={{ color: "#fff", }} align='center'>Banner URL</TableCell>
+                            <TableCell style={{ color: "#fff", }} align='center'>Action</TableCell>
+                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {
@@ -62,15 +68,23 @@ function EngineeringData() {
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell align="center">{items.id}</TableCell>
-                                        <TableCell align='center'>{items.college_name}</TableCell>
-                                        <TableCell align="center">{items.college_address}</TableCell>
-                                        <TableCell align="center">{items.college_category}</TableCell>
-                                        <TableCell align="center">{items.Last_date}</TableCell>
+                                        <TableCell align='center'>{items.banner_url}</TableCell>
                                         <TableCell align="center">
                                             <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
                                                 style={{
                                                     color: "red",
-                                                    cursor: "pointer"
+                                                    cursor: "pointer",
+                                                    marginRight:"10px"
+                                                }}
+                                            />
+                                            <CreateIcon titleAccess='Update' onClick={() => openForm(
+                                                items.id,
+                                                items.banner_url
+                                                )}
+                                                style={{
+                                                    color: "orange",
+                                                    cursor: "pointer",
+                                                    marginLeft:"10px"
                                                 }}
                                             />
                                             </TableCell>
@@ -84,8 +98,7 @@ function EngineeringData() {
         </div>
         <ToastContainer />
         </>
-        
-    )
+  )
 }
 
-export default EngineeringData
+export default BannerData;

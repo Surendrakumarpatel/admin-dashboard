@@ -5,24 +5,26 @@ import Button from "@mui/material/Button";
 import MenuItem from '@mui/material/MenuItem';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import axios from "axios";
-import {useForm} from 'react-hook-form'
-import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form'
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BaseUrl } from '../baseurl/baseurl';
 
-const url = `${BaseUrl}/setAdmitCardEngAPI`;
+const url = `${BaseUrl}/updateAdmitCardEngAPI`;
 const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
-function Engineering() {
+function UpdateEngineeringData() {
+    const location = useLocation();
+    const id = location.state.id;
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const [formData, setFormData] = React.useState({
-        college_name: "",
-        college_logo: "",
-        college_address: "",
-        college_category: "",
-        web_link: "",
+        college_name: location.state.college_name,
+        college_logo: location.state.college_logo,
+        college_address: location.state.college_address,
+        college_category: location.state.college_category,
+        web_link: location.state.web_link,
         status: "0"
     });
     const changeEventHandler = (e) => {
@@ -31,7 +33,7 @@ function Engineering() {
         setFormData({ ...formData, [name]: value });
     }
 
-    const submitData = async (data,e) => {
+    const submitData = async (data, e) => {
         e.preventDefault();
         console.log(data.avatar[0]);
         const formValue = new FormData();
@@ -45,16 +47,17 @@ function Engineering() {
         console.log(formData);
 
         await axios.post(url, JSON.stringify({
-        college_name: formData.college_name,
-        college_logo: res.url,
-        college_address: formData.college_address,
-        college_category: formData.college_category,
-        web_link: formData.web_link,
-        status: formData.status
+            id: id,
+            college_name: formData.college_name,
+            college_logo: res.url,
+            college_address: formData.college_address,
+            college_category: formData.college_category,
+            web_link: formData.web_link,
+            status: formData.status
         })).then((res) => {
 
             console.log(res.data);
-            toast.success('Created Successfully!', {
+            toast.success('Updated Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -85,7 +88,7 @@ function Engineering() {
         <>
             <div className='application-engineering'>
                 <div className="top-content">
-                    <h1>Create Exams</h1>
+                    <h1>Update Engineering Data</h1>
                     <div>
                         <NextPlanIcon onClick={goEngData} className="next-icons" />
                     </div>
@@ -143,8 +146,8 @@ function Engineering() {
 
                     <div className='upload'>
                         College Logo
-                        <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
-                    
+                        <input className="hide_file" type="file" {...register("avatar")} style={{ cursor: "pointer" }} accept=".jpeg,.png , .jpg"/>
+
                     </div>
                     <Button type='submit' variant="contained">Submit</Button>
                 </form>
@@ -155,4 +158,4 @@ function Engineering() {
     )
 }
 
-export default Engineering
+export default UpdateEngineeringData;

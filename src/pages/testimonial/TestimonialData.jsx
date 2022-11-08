@@ -10,19 +10,22 @@ import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import CreateIcon from '@mui/icons-material/Create';
+import {useNavigate} from 'react-router-dom';
+import { BaseUrl } from '../baseurl/baseurl';
 
 function TestimonialData() {
+    const navigate = useNavigate();
     const [apiData, setApiData] = useState([]);
     useEffect(() => {
-        axios.get("https://kalkaprasad.com/careerbanao/index.php/APIBase/fetchtestimonialsAPI")
+        axios.get(`${BaseUrl}/fetchtestimonialsAPI`)
             .then((getData) => {
                 console.log(getData.data);
                 setApiData(getData.data);
             })
     },);
     const del = async (id) => {
-        await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/DeleteTestimonailsDataAPI?id=${id}`).then((res, req) => {
+        await axios.post(`${BaseUrl}/DeleteTestimonailsDataAPI?id=${id}`).then((res, req) => {
             toast.success('Deleted Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -37,6 +40,11 @@ function TestimonialData() {
             console.log(err);
             alert("Server down please try after sometime!")
         });
+    }
+
+    // Update API
+    const openForm = (id,student_name,college_name,feedback,student_image) => {
+        navigate('/dashboard/testimonial/updatetestimonial',{state:{id:id,name:student_name,college_name:college_name,feedback:feedback,student_image:student_image}});
     }
     return (
         <>
@@ -67,7 +75,21 @@ function TestimonialData() {
                                                 <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
                                                     style={{
                                                         color: "red",
-                                                        cursor: "pointer"
+                                                        cursor: "pointer",
+                                                        marginRight:"10px"
+                                                    }}
+                                                />
+                                                <CreateIcon titleAccess='Update' onClick={() => openForm(
+                                                    items.id,
+                                                    items.name,
+                                                    items.college_name,
+                                                    items.feedback,
+                                                    items.student_image
+                                                    )}
+                                                    style={{
+                                                        color: "orange",
+                                                        cursor: "pointer",
+                                                        marginLeft:"10px"
                                                     }}
                                                 />
                                             </TableCell>

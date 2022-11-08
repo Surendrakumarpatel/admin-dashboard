@@ -8,33 +8,63 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useForm } from "react-hook-form";
+import { useLocation } from 'react-router-dom';
+import { BaseUrl } from '../baseurl/baseurl';
 
 
-const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/SetEngAPPDataAPI";
+const url = `${BaseUrl}/updateApplicationEngAPI`;
+const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
-function Engineering() {
+
+function UpdateEngineeringData() {
+    const location = useLocation();
+    const id = location.state.id;
     const navigate = useNavigate();
+    const { register, handleSubmit } = useForm();
     const [formData, setFormData] = React.useState({
-        college_name:"",
-        college_logo:"",
-        college_address:"",
-        Last_date:"",
-        latest_news:"",
-        news_event:"",
-        Introduction:"",
-        college_category:"",
-        apply_link:""
+        college_name:location.state.college_name,
+        college_logo:location.state.college_logo,
+        college_address:location.state.college_address,
+        Last_date:location.state.last_date,
+        latest_news:location.state.latest_news,
+        news_event:location.state.new_event,
+        Introduction:location.state.introduction,
+        college_category:location.state.college_category,
+        apply_link:location.state.apply_link,
     });
+    
     const changeEventHandler = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setFormData({ ...formData, [name]: value });
     }
-    const submitData = async (e) => {
+    const submitData = async (data,e) => {
         e.preventDefault();
+        console.log(data.avatar[0]);
+        const formValue = new FormData();
+        formValue.append("avatar", data.avatar[0]);
+
+        const res = await fetch(uploadUrl, {
+            method: "POST",
+            body: formValue,
+        }).then((res) => res.json());
+
         console.log(formData);
-        await axios.post(url, JSON.stringify(formData)).then((res) => {
-            toast.success('Created Successfully!', {
+
+        await axios.post(url, JSON.stringify({
+        id:id,
+        college_name:formData.college_name,
+        college_logo:res.url,
+        college_address:formData.college_address,
+        Last_date:formData.Last_date,
+        latest_news: formData.latest_news,
+        news_event:formData.news_event,
+        Introduction:formData.Introduction,
+        college_category:formData.college_category,
+        apply_link:formData.apply_link
+        })).then((res) => {
+            toast.success('Updated Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -61,19 +91,19 @@ function Engineering() {
         })
     }
     const goEngDataPage = ()=>{
-        navigate("/application/engineering/engineeringData");
+        navigate("/dashboard/application/engineering/engineeringData");
     }
 
     return (
         <>
         <div className='application-engineering'>
             <div className="top-content">
-                <h1>Create Exams</h1>
+                <h1>Update Engineering</h1>
                 <div>
                     <NextPlanIcon onClick= {goEngDataPage} className="next-icons" />
                 </div>
             </div>
-            <form onSubmit={submitData}>
+            <form onSubmit={handleSubmit(submitData)}>
                 <div>
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -166,12 +196,8 @@ function Engineering() {
                 />
                 <div className='upload'>
                     College Logo
-                    <input
-                        name='college_logo'
-                        value={formData.college_logo}
-                        onChange={changeEventHandler}
-                        type="file"
-                        className="hide_file" />
+                    <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>
@@ -182,4 +208,4 @@ function Engineering() {
     )
 }
 
-export default Engineering
+export default UpdateEngineeringData;

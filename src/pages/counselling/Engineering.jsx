@@ -4,15 +4,18 @@ import Button from "@mui/material/Button";
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {useForm} from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BaseUrl } from '../baseurl/baseurl';
 
 
-const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/setCounsEngAPI";
+const url = `${BaseUrl}/setCounsEngAPI`;
+const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
 function Engineering() {
     const navigate = useNavigate();
-
+const {register, handleSubmit} = useForm();
     const [formData, setFormData] = React.useState({
         college_name: "",
         college_logo: "",
@@ -28,10 +31,26 @@ function Engineering() {
         setFormData({ ...formData, [name]: value });
     }
 
-    const submitData = (e) => {
+    const submitData = async (data,e) => {
         e.preventDefault();
-        console.log(formData);
-        axios.post(url, JSON.stringify(formData)).then((res) => {
+        console.log(data.avatar[0]);
+        const formValue = new FormData();
+        formValue.append("avatar", data.avatar[0]);
+
+        const res = await fetch(uploadUrl, {
+            method: "POST",
+            body: formValue,
+        }).then((res) => res.json());
+
+        axios.post(url, JSON.stringify({
+        college_name: formData.college_name,
+        college_logo: res.url,
+        lates_news: formData.lates_news,
+        new_event: formData.new_event,
+        introduction: formData.introduction,
+        web_link: formData.web_link,
+        status:formData.status
+        })).then((res) => {
             toast.success('Created Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -57,7 +76,7 @@ function Engineering() {
         })
     }
     const goEngData = ()=>{
-         navigate("/counselling/engineering/engData");
+         navigate("/dashboard/counselling/engineering/engData");
     }
 
 
@@ -70,7 +89,7 @@ function Engineering() {
                     <NextPlanIcon onClick = {goEngData} className="next-icons"/>
                 </div>
             </div>
-            <form onSubmit={submitData} >
+            <form onSubmit={handleSubmit(submitData)} >
                 <div>
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -123,12 +142,8 @@ function Engineering() {
                 />
                 <div className='upload'>
                     College Logo
-                    <input
-                        name='college_logo'
-                        value={formData.college_logo}
-                        onChange={changeEventHandler}
-                        type="file"
-                        className="hide_file" />
+                    <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>

@@ -9,19 +9,23 @@ import Paper from '@mui/material/Paper';
 import axios from "axios";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { ToastContainer, toast } from 'react-toastify';
+import CreateIcon from '@mui/icons-material/Create';
+import {useNavigate} from "react-router-dom";
+import { BaseUrl } from '../baseurl/baseurl';
 
 
 function MedicalData() {
+    const navigate = useNavigate();
     const [apiData, setApiData] = useState([]);
     useEffect(() => {
-        axios.get("https://kalkaprasad.com/careerbanao/index.php/APIBase/getResultMed")
+        axios.get(`${BaseUrl}/getResultMed`)
             .then((getData) => {
                 console.log(getData.data);
                 setApiData(getData.data);
             })
     },);
     const del = async (id)=>{
-        await axios.post(`https://kalkaprasad.com/careerbanao/index.php/APIBase/deleteResultMedAPI?id=${id}`).then((res,req)=>{
+        await axios.post(`${BaseUrl}/deleteResultMedAPI?id=${id}`).then((res,req)=>{
             toast.success('Deleted Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -35,6 +39,16 @@ function MedicalData() {
         }).catch((err)=>{
             alert("Server down please try after sometime!")
         });
+    } 
+    const openForm = (id,college_name,college_logo,college_address,college_category,web_link) => {
+        navigate('/dashboard/result/medical/update',{state:{
+            id:id,
+            college_name:college_name,
+            college_logo:college_logo,
+            college_address:college_address,
+            college_category:college_category,
+            web_link:web_link
+        }});
     } 
     return (
         <>
@@ -63,12 +77,27 @@ function MedicalData() {
                                         <TableCell align="center">{items.college_address}</TableCell>
                                         <TableCell align="center">{items.college_category}</TableCell>
                                         <TableCell align="center">{items.Last_date}</TableCell>
-                                        <TableCell align="center"><DeleteForeverIcon titleAccess='Delete' onClick={()=> del(items.id)}
+                                        <TableCell align="center">
+                                        <DeleteForeverIcon titleAccess='Delete' onClick={()=> del(items.id)}
                                             style={{
                                                 color: "red",
                                                 cursor: "pointer"
                                             }}
-                                        /></TableCell>
+                                        />
+                                        <CreateIcon titleAccess='Update' onClick={() => openForm(
+                                                    items.id,
+                                                    items.college_name,
+                                                    items.college_logo,
+                                                    items.college_address,
+                                                    items.college_category,
+                                                    items.web_link 
+                                                    )}
+                                                    style={{
+                                                        color: "orange",
+                                                        cursor: "pointer",
+                                                        marginLeft:"10px"
+                                                    }}
+                                                /></TableCell>
                                     </TableRow>
                                 )
                             })

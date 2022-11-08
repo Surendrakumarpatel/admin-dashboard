@@ -4,14 +4,18 @@ import Button from "@mui/material/Button";
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {useForm} from 'react-hook-form'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BaseUrl } from '../baseurl/baseurl';
 
 
-const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/setCounsMedAPI";
+const url = `${BaseUrl}/setCounsMedAPI`;
+const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
 function Medical(){
   const navigate = useNavigate();
+  const {register, handleSubmit} = useForm();
     const [formData, setFormData] = React.useState({
         college_name: "",
         college_logo: "",
@@ -27,10 +31,28 @@ function Medical(){
         setFormData({ ...formData, [name]: value });
     }
 
-    const submitData = async (e) => {
+    const submitData = async (data,e) => {
         e.preventDefault();
+        console.log(data.avatar[0]);
+        const formValue = new FormData();
+        formValue.append("avatar", data.avatar[0]);
+
+        const res = await fetch(uploadUrl, {
+            method: "POST",
+            body: formValue,
+        }).then((res) => res.json());
+
         console.log(formData);
-        await axios.post(url, JSON.stringify(formData)).then((res)=>{ 
+
+        await axios.post(url, JSON.stringify({
+        college_name: formData.college_name,
+        college_logo: res.url,
+        lates_news: formData.lates_news,
+        new_event: formData.new_event,
+        introduction: formData.introduction,
+        web_link: formData.web_link,
+        status:formData.statusl
+        })).then((res)=>{ 
             toast.success('Created Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -56,7 +78,7 @@ function Medical(){
         })
     }
     const goMedData = ()=>{
-        navigate("/counselling/medical/medData");
+        navigate("/dashboard/counselling/medical/medData");
     }
      
     return (
@@ -68,7 +90,7 @@ function Medical(){
                    <NextPlanIcon onClick = {goMedData} className="next-icons" />
                 </div>
             </div>
-            <form onSubmit={submitData}>
+            <form onSubmit={handleSubmit(submitData)}>
                 <div>
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -123,12 +145,8 @@ function Medical(){
                 />
                 <div className='upload'>
                     College Logo
-                    <input
-                        name='college_logo'
-                        value={formData.college_logo}
-                        onChange={changeEventHandler}
-                        type="file"
-                        className="hide_file"/>
+                    <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>

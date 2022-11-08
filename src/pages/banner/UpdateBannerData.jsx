@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import Button from "@mui/material/Button";
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import axios from "axios";
@@ -6,40 +6,31 @@ import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { BaseUrl } from '../baseurl/baseurl';
 
-const url = `${BaseUrl}/setBannerAPI`;
-const uploadUrl = `https://kalkaprasad.com/careerBanaoImages/upload.php`;
+const url = `${BaseUrl}/updatebannerAPI`;
+const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
-function Banner() {
+function UpdateBannerData() {
     const navigate = useNavigate();
-    const [image, setImage] = useState({
-        img:"",
-    });
-
-    const showImage = (e) =>{
-        console.log('====================================');
-        console.log(e.target.files[0]);
-        console.log('====================================');
-        setImage({
-            img:URL.createObjectURL(e.target.files[0])
-        })
-       
-        console.log(image.img);
-    }
-
+    const location = useLocation(); 
+    const id = location.state.id;
     const { register, handleSubmit } = useForm();
-
     const onSubmit = async (data) => {
         console.log(data.avatar[0]);
         const formData = new FormData();
         formData.append("avatar", data.avatar[0]);
+
         const res = await fetch(uploadUrl, {
             method: "POST",
             body: formData,
         }).then((res) => res.json());
-       await axios.post(url, JSON.stringify({banner_url:res.url})).then((res,req)=>{
-        toast.success('Uploaded Successfully!', {
+       await axios.post(url, JSON.stringify({
+        id:id,
+        banner_url:res.url
+       })).then((res,req)=>{
+        toast.success('Updated Successfully!', {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -57,12 +48,12 @@ function Banner() {
     const goToBannerData = ()=>{
         navigate("/dashboard/banner/bannerData");
     }
-     
+
     return (
         <>
         <div className='application-engineering'>
             <div className="top-content">
-                <h1>Set Banner</h1>
+                <h1>Update Banner</h1>
                 <div>
                     <NextPlanIcon onClick = {goToBannerData} className="next-icons" />
                 </div>
@@ -70,10 +61,8 @@ function Banner() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='upload' >
                     Banner
-                  <input onChange={showImage} className="hide_file" type="file"  {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                  <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
                 </div>
-                <p>Yha image ayegi</p> 
-                <img src={image.img} alt="upload banner"/>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>
         </div>
@@ -82,4 +71,4 @@ function Banner() {
     )
 }
 
-export default Banner
+export default UpdateBannerData

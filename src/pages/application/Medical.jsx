@@ -1,39 +1,40 @@
 import React from 'react';
-// import "./Engineering.css";
+import "./Engineering.css";
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import MenuItem from '@mui/material/MenuItem';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {useForm} from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useForm } from "react-hook-form";
 import { BaseUrl } from '../baseurl/baseurl';
 
-
-
-const url = `${BaseUrl}/setAdmitCardMedAPI`;
+const url = `${BaseUrl}/SetMedAPPDataAPI`;
 const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
 
 function Medical() {
-    const navigate = useNavigate();
-    const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
     const [formData, setFormData] = React.useState({
         college_name: "",
         college_logo: "",
         college_address: "",
+        Last_date: "",
+        latest_news: "",
+        news_event: "",
+        Introduction: "",
         college_category: "",
-        web_link: "",
-        status:"0"
+        apply_link: ""
     });
     const changeEventHandler = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        setFormData({ ...formData, [name]: value });
+        setFormData({...formData, [name]: value });
     }
 
-    const submitData = async (data,e) => {
+    const submitMedicalData = async (data,e) => {
         e.preventDefault();
         console.log(data.avatar[0]);
         const formValue = new FormData();
@@ -45,17 +46,17 @@ function Medical() {
         }).then((res) => res.json());
 
         console.log(formData);
-
         await axios.post(url, JSON.stringify({
-        college_name: formData.college_name,
-        college_logo: res.url,
-        college_address: formData.college_address,
-        college_category: formData.college_category,
-        web_link: formData.web_link,
-        status: formData.status
-        })).then((res)=>{ 
-            console.log(formData);
-            console.log(res.data);
+            college_name:formData.college_name,
+            college_logo:res.url,
+            college_address:formData.college_address,
+            Last_date:formData.Last_date,
+            latest_news: formData.latest_news,
+            news_event:formData.news_event,
+            Introduction:formData.Introduction,
+            college_category:formData.college_category,
+            apply_link:formData.apply_link
+        })).then((res) => {
             toast.success('Created Successfully!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -65,34 +66,38 @@ function Medical() {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-            });
-        }).catch((err)=>{
-           console.log(err);
+                });
+            console.log(res.data);
+        }).catch((err) => {
+            console.log(err);
         })
         setFormData({
             college_name: "",
             college_logo: "",
             college_address: "",
+            Last_date: "",
+            latest_news: "",
+            news_event: "",
+            Introduction: "",
             college_category: "",
-            web_link: "",
-            status:'0'
+            apply_link: ""
         })
     }
-
-    const goMedData =()=>{
-        navigate("/dashboard/admitcard/medical/MedData");
+    const goMedDataPage = ()=>{
+       navigate("/dashboard/application/medical/medicalData");
     }
      
+
     return (
-<>
- <div className='application-engineering'>
+        <>
+        <div className='application-engineering'>
             <div className="top-content">
                 <h1>Create Exams</h1>
                 <div>
-                   <NextPlanIcon onClick={goMedData} className="next-icons" />
+                    <NextPlanIcon onClick = {goMedDataPage} className="next-icons" />
                 </div>
             </div>
-            <form onSubmit={handleSubmit(submitData)}>
+            <form onSubmit={handleSubmit(submitMedicalData)}>
                 <div>
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -114,14 +119,37 @@ function Medical() {
                     />
 
                 </div>
+
                 <div>
                     <TextField
                         style={{ margin: "0.5rem" }}
-                        label="Web Link"
+                        label="News Events"
                         id="outlined-size-small"
                         size="small"
-                        name='web_link'
-                        value={formData.web_link}
+                        name='news_event'
+                        value={formData.news_event}
+                        onChange={changeEventHandler}
+                    />
+
+                    <TextField
+                        style={{ margin: "0.5rem" }}
+                        label="Latest News"
+                        id="outlined-size-small"
+                        size="small"
+                        name='latest_news'
+                        value={formData.latest_news}
+                        onChange={changeEventHandler}
+                    />
+                </div>
+
+                <div>
+                    <TextField
+                        style={{ margin: "0.5rem" }}
+                        label="Apply Link"
+                        id="outlined-size-small"
+                        size="small"
+                        name='apply_link'
+                        value={formData.apply_link}
                         onChange={changeEventHandler}
                     />
                     <TextField
@@ -131,14 +159,35 @@ function Medical() {
                         name='college_category'
                         value={formData.college_category}
                         onChange={changeEventHandler}
-                        helperText="Please select your currency"
+                        helperText="Please select your college category"
                         variant="standard"
                     >
                         <MenuItem value="Government">Government</MenuItem>
                         <MenuItem value="Private">Private</MenuItem>
                     </TextField>
                 </div>
-  
+
+                <div>
+                    <TextField
+                        style={{ margin: "0.5rem" }}
+                        type='date'
+                        id="outlined-size-small"
+                        size="small"
+                        name='Last_date'
+                        value={formData.Last_date}
+                        onChange={changeEventHandler}
+                    />
+
+                </div>
+
+                <label className='intro-of-college'>Introduction:</label>
+                <textarea
+                    rows='4'
+                    cols="50"
+                    name="Introduction"
+                    value={formData.Introduction}
+                    onChange={changeEventHandler}
+                />
                 <div className='upload'>
                     College Logo
                     <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
@@ -146,9 +195,10 @@ function Medical() {
                 <Button type='submit' variant="contained">Submit</Button>
             </form>
         </div>
-        <ToastContainer />
-</>
-       
+        <ToastContainer/>
+        </>
+
+        
     )
 }
 
