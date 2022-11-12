@@ -9,9 +9,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { useLocation } from 'react-router-dom';
 import { BaseUrl } from '../baseurl/baseurl';
+import {BaseUrlImg} from '../baseurl/baseurl';
 
 const url = `${BaseUrl}/updateTestimonial`;
-const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
+const uploadUrl = `${BaseUrlImg}/careerBanaoImages/upload.php`;
 
 function UpdateTestimonial() {
     const location = useLocation();
@@ -55,7 +56,7 @@ function UpdateTestimonial() {
             console.log(res.data);
             toast.success('Updated Successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -117,8 +118,8 @@ function UpdateTestimonial() {
                         value={testimonial.feedback}
                         onChange={changeEventHandler}
                     />
+                    <p style={{marginTop:"12px"}}>Student Image:</p>
                     <div className='upload'>
-                        Student Image
                         <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
                     </div>
                     <Button type='submit' variant="contained">Submit</Button>

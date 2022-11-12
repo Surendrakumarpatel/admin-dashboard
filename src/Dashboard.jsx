@@ -97,7 +97,7 @@ function Dashboard() {
 
                         {/* LoginUserInfo */}
                         <Route path="/userinfo" element={<LoginUserInfo/>} />
-                        <Route path="*" element={<>Uff! page was not found</>} />
+                        <Route path="*" element={<h1>Welcome to Admin Portal</h1>} />
                     </Routes>
                 </LeftSidebar>
             {/* </Router> */}

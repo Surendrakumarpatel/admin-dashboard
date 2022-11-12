@@ -28,7 +28,7 @@ function TestimonialData() {
         await axios.post(`${BaseUrl}/DeleteTestimonailsDataAPI?id=${id}`).then((res, req) => {
             toast.success('Deleted Successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -61,7 +61,7 @@ function TestimonialData() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {
+                            {   apiData === 204 ? <p className = "data-not-found"></p> :
                                 apiData.map((items) => {
                                     return (
                                         <TableRow

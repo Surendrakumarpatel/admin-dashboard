@@ -7,9 +7,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { BaseUrl } from '../baseurl/baseurl';
+import {BaseUrlImg} from '../baseurl/baseurl';
 
 const url = `${BaseUrl}/setBannerAPI`;
-const uploadUrl = `https://kalkaprasad.com/careerBanaoImages/upload.php`;
+const uploadUrl = `${BaseUrlImg}/careerBanaoImages/upload.php`;
 
 function Banner() {
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ function Banner() {
        await axios.post(url, JSON.stringify({banner_url:res.url})).then((res,req)=>{
         toast.success('Uploaded Successfully!', {
             position: "top-center",
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -68,12 +69,10 @@ function Banner() {
                 </div>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
+            <p style={{marginTop:"12px"}}>Banner Upload:</p>
                 <div className='upload' >
-                    Banner
-                  <input onChange={showImage} className="hide_file" type="file"  {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                  <input onChange={showImage} type="file"  {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
                 </div>
-                <p>Yha image ayegi</p> 
-                <img src={image.img} alt="upload banner"/>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>
         </div>

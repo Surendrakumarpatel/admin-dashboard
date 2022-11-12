@@ -11,10 +11,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { useLocation } from 'react-router-dom';
 import { BaseUrl } from '../baseurl/baseurl';
+import {BaseUrlImg} from '../baseurl/baseurl';
 
 
 const url = `${BaseUrl}/updateApplicationEngAPI`;
-const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
+const uploadUrl = `${BaseUrlImg}/careerBanaoImages/upload.php`;
 
 
 function UpdateEngineeringData() {
@@ -66,7 +67,7 @@ function UpdateEngineeringData() {
         })).then((res) => {
             toast.success('Updated Successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -194,9 +195,9 @@ function UpdateEngineeringData() {
                     value={formData.Introduction}
                     onChange={changeEventHandler}
                 />
+                <p style={{marginTop:"12px"}}>Upload Logo:</p>
                 <div className='upload'>
-                    College Logo
-                    <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                    <input type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
                 
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>

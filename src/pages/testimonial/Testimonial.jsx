@@ -8,19 +8,20 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { BaseUrl } from '../baseurl/baseurl';
-
+import { BaseUrlImg } from '../baseurl/baseurl';
 const url = `${BaseUrl}/SetTestimonialDataAPI`;
-const uploadUrl = "https://kalkaprasad.com/careerBanaoImages/upload.php";
-
+const uploadUrl = `${BaseUrlImg}/careerBanaoImages/upload.php`;
+ 
+ 
+ 
 function Testimonial() {
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
-
     const [testimonial, setTestimonial] = useState({
         name: "",
         college_name: "",
         feedback: "",
-        student_image:""
+        student_image: ""
     });
     const changeEventHandler = (e) => {
         const name = e.target.name;
@@ -28,8 +29,8 @@ function Testimonial() {
         setTestimonial({ ...testimonial, [name]: value });
 
     }
-    const submitData = async (data,e) => {
-        
+     
+    const submitData = async (data, e) => {
         e.preventDefault();
         console.log(data.avatar[0]);
         const formData = new FormData();
@@ -40,24 +41,24 @@ function Testimonial() {
             body: formData,
         }).then((res) => res.json());
 
-        console.log(testimonial);
+        console.log(res);
         await axios.post(url, JSON.stringify({
-            name:testimonial.name,
-            college_name:testimonial.college_name,
-            feedback:testimonial.feedback,
-            student_image:res.url,
+            name: testimonial.name,
+            college_name: testimonial.college_name,
+            feedback: testimonial.feedback,
+            student_image: res.url,
         })).then((res) => {
             console.log(res.data);
             toast.success('Created Successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-                });
+            });
         }).catch((err) => {
             console.log(err);
         })
@@ -65,7 +66,7 @@ function Testimonial() {
             name: "",
             college_name: "",
             feedback: "",
-            student_image: ''
+            student_image: ""
         })
     }
     const goTestimonialPage = () => {
@@ -91,6 +92,7 @@ function Testimonial() {
                             name='name'
                             value={testimonial.name}
                             onChange={changeEventHandler}
+                            
                         />
                         <TextField
                             style={{ margin: "0.5rem" }}
@@ -100,10 +102,9 @@ function Testimonial() {
                             name='college_name'
                             value={testimonial.college_name}
                             onChange={changeEventHandler}
+                             
                         />
-
                     </div>
-
                     <label className='intro-of-college'>Feedback:</label>
                     <textarea
                         rows='3'
@@ -111,12 +112,12 @@ function Testimonial() {
                         name="feedback"
                         value={testimonial.feedback}
                         onChange={changeEventHandler}
+                        
                     />
+                    <p style={{marginTop:"12px"}}>Student Image:</p>
                     <div className='upload'>
-                        Student Image
-                        <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                        <input  type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
                     </div>
-                    {/* <img style={{ width: "100px", height: "100px" }} src={image} alt="alt"></img> */}
                     <Button type='submit' variant="contained">Submit</Button>
                 </form>
             </div>

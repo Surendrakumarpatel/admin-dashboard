@@ -27,7 +27,7 @@ function MedicalData() {
         await axios.post(`${BaseUrl}/deleteCounsMedAPI?id=${id}`).then((res, req) => {
             toast.success('Deleted Successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

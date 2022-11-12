@@ -79,9 +79,9 @@ textarea{
       font-size: 24px;
       width:100%;
   }
-  input[type='file'] {
+  /* input[type='file'] {
     color: transparent;
-  }
+  } */
   button{
     margin-bottom:2rem !important;
   }

@@ -28,7 +28,7 @@ function UserData() {
         await axios.post(`${BaseUrl}/DeleteHomeDataAPI?id=${id}`).then((res, req) => {
             toast.success('Deleted Successfully!', {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
