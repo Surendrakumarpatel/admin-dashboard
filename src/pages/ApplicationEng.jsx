@@ -1,31 +1,25 @@
 import React from 'react';
-// import "./Engineering.css";
+import "./ApplicationEng.css";
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import MenuItem from '@mui/material/MenuItem';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {useForm} from 'react-hook-form';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { BaseUrl } from '../baseurl/baseurl';
-import {BaseUrlImg} from '../baseurl/baseurl';
 
-
-const url = `${BaseUrl}/setAdmitCardMedAPI`;
-const uploadUrl = `${BaseUrlImg}/careerBanaoImages/upload.php`;
-
-function Medical() {
+const url = "https://kalkaprasad.com/careerbanao/index.php/APIBase/getApplicationDetailsEng";
+function ApplicationEng() {
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm();
     const [formData, setFormData] = React.useState({
         college_name: "",
         college_logo: "",
         college_address: "",
-        college_category: "",
-        web_link: "",
-        status:"0"
+        last_date: "",
+        latest_news: "",
+        news_events: "",
+        introduction: "",
+        category: "",
+        apply_link: ""
     });
     const changeEventHandler = (e) => {
         const name = e.target.name;
@@ -33,39 +27,11 @@ function Medical() {
         setFormData({ ...formData, [name]: value });
     }
 
-    const submitData = async (data,e) => {
+    const submitData = async (e) => {
         e.preventDefault();
-        console.log(data.avatar[0]);
-        const formValue = new FormData();
-        formValue.append("avatar", data.avatar[0]);
-
-        const res = await fetch(uploadUrl, {
-            method: "POST",
-            body: formValue,
-        }).then((res) => res.json());
-
-        console.log(formData);
-
-        await axios.post(url, JSON.stringify({
-        college_name: formData.college_name,
-        college_logo: res.url,
-        college_address: formData.college_address,
-        college_category: formData.college_category,
-        web_link: formData.web_link,
-        status: formData.status
-        })).then((res)=>{ 
+        await axios.post(url, JSON.stringify(formData)).then((res)=>{ 
             console.log(formData);
             console.log(res.data);
-            toast.success('Created Successfully!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
         }).catch((err)=>{
            console.log(err);
         })
@@ -73,27 +39,26 @@ function Medical() {
             college_name: "",
             college_logo: "",
             college_address: "",
-            college_category: "",
-            web_link: "",
-            status:'0'
+            last_date: "",
+            latest_news: "",
+            news_events: "",
+            introduction: "",
+            category: "",
+            apply_link: ""
         })
         document.getElementById('uploadFile').value = "";
     }
-
-    const goMedData =()=>{
-        navigate("/dashboard/admitcard/medical/MedData");
-    }
      
     return (
-<>
- <div className='application-engineering'>
+
+        <div className='application-engineering'>
             <div className="top-content">
                 <h1>Create Exams</h1>
                 <div>
-                   <NextPlanIcon onClick={goMedData} className="next-icons" />
+                   <NextPlanIcon className="next-icons" />
                 </div>
             </div>
-            <form onSubmit={handleSubmit(submitData)}>
+            <form onSubmit={submitData}>
                 <div>
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -103,7 +68,6 @@ function Medical() {
                         name='college_name'
                         value={formData.college_name}
                         onChange={changeEventHandler}
-                        required
                     />
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -113,47 +77,92 @@ function Medical() {
                         name='college_address'
                         value={formData.college_address}
                         onChange={changeEventHandler}
-                        required
                     />
 
                 </div>
+
                 <div>
                     <TextField
                         style={{ margin: "0.5rem" }}
-                        label="Web Link"
+                        label="News Events"
                         id="outlined-size-small"
                         size="small"
-                        name='web_link'
-                        value={formData.web_link}
+                        name='news_events'
+                        value={formData.news_events}
                         onChange={changeEventHandler}
-                        required
+                    />
+
+                    <TextField
+                        style={{ margin: "0.5rem" }}
+                        label="Latest News"
+                        id="outlined-size-small"
+                        size="small"
+                        name='latest_news'
+                        value={formData.latest_news}
+                        onChange={changeEventHandler}
+                    />
+                </div>
+
+                <div>
+                    <TextField
+                        style={{ margin: "0.5rem" }}
+                        label="Apply Link"
+                        id="outlined-size-small"
+                        size="small"
+                        name='apply_link'
+                        value={formData.apply_link}
+                        onChange={changeEventHandler}
                     />
                     <TextField
                         id="standard-select-currency"
                         select
                         label="Category"
-                        name='college_category'
-                        value={formData.college_category}
+                        name='category'
+                        value={formData.category}
                         onChange={changeEventHandler}
                         helperText="Please select your currency"
                         variant="standard"
-                        required
                     >
                         <MenuItem value="Government">Government</MenuItem>
                         <MenuItem value="Private">Private</MenuItem>
                     </TextField>
                 </div>
-                <p style={{marginTop:"12px"}}>Upload Logo:</p>
+
+                <div>
+                    <TextField
+                        style={{ margin: "0.5rem" }}
+                        type='date'
+                        id="outlined-size-small"
+                        size="small"
+                        name='last_date'
+                        value={formData.last_date}
+                        onChange={changeEventHandler}
+                    />
+
+                </div>
+                
+                <label className='intro-of-college'>Introduction:</label>
+                <textarea
+                    rows='4'
+                    cols="50"
+                    name="introduction"
+                    value={formData.introduction}
+                    onChange={changeEventHandler}
+                />
                 <div className='upload'>
-                    <input id='uploadFile' type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg" required/>
+                    College Logo
+                    <input
+                        id='uploadFile'
+                        name='college_logo'
+                        value={formData.college_logo}
+                        onChange={changeEventHandler}
+                        type="file"
+                        className="hide_file" />
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>
         </div>
-        <ToastContainer />
-</>
-       
     )
 }
 
-export default Medical
+export default ApplicationEng

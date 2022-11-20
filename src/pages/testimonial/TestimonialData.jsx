@@ -48,8 +48,8 @@ function TestimonialData() {
     }
     return (
         <>
-            <div className='TestimonialData'>
-                <TableContainer component={Paper}>
+            <div className = 'TestimonialData'>
+                <TableContainer className='style-7' component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow className='header'>

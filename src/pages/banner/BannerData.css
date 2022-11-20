@@ -1,0 +1,9 @@
+.dialog-image-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ .d-img{
+     width: 300px;
+    border-radius: 5px;
+}

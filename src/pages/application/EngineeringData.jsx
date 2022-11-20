@@ -62,7 +62,7 @@ function EngineeringData() {
 
         <>
         <div className='engineeringData'>
-            <TableContainer component={Paper}>
+            <TableContainer className='style-7' component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow className='header'>

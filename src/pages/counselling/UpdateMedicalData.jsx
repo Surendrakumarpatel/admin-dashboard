@@ -80,6 +80,7 @@ function UpdateMedicalData(){
             web_link: "",
             status:"0"
         })
+        document.getElementById('uploadFile').value = "";
     }
     const goMedData = ()=>{
         navigate("/dashboard/counselling/medical/medData");
@@ -104,6 +105,7 @@ function UpdateMedicalData(){
                         name='college_name'
                         value={formData.college_name}
                         onChange={changeEventHandler}
+                        required
                     />
                      <TextField
                         style={{ margin: "0.5rem" }}
@@ -113,6 +115,7 @@ function UpdateMedicalData(){
                         name='web_link'
                         value={formData.web_link}
                         onChange={changeEventHandler}
+                        required
                     />
 
                 </div>
@@ -126,6 +129,7 @@ function UpdateMedicalData(){
                         name='new_event'
                         value={formData.new_event}
                         onChange={changeEventHandler}
+                        required
                     />
 
                     <TextField
@@ -136,6 +140,7 @@ function UpdateMedicalData(){
                         name='lates_news'
                         value={formData.lates_news}
                         onChange={changeEventHandler}
+                        required
                     />
                 </div>
  
@@ -146,10 +151,11 @@ function UpdateMedicalData(){
                     name="introduction"
                     value={formData.introduction}
                     onChange={changeEventHandler}
+                    required
                 />
                 <p style={{marginTop:"12px"}}>Upload Logo:</p>
                 <div className='upload'>
-                    <input type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                    <input id='uploadFile' type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg" required/>
                 
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>

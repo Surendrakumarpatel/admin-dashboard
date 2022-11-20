@@ -78,6 +78,7 @@ function UpdateEngineeringData() {
             web_link: "",
             status: "0"
         })
+        document.getElementById('uploadFile').value = "";
     }
     const goEngData = () => {
         navigate("/dashboard/counselling/engineering/engData");
@@ -103,6 +104,7 @@ function UpdateEngineeringData() {
                             name='college_name'
                             value={formData.college_name}
                             onChange={changeEventHandler}
+                            required
                         />
                         <TextField
                             style={{ margin: "0.5rem" }}
@@ -112,6 +114,7 @@ function UpdateEngineeringData() {
                             name='web_link'
                             value={formData.web_link}
                             onChange={changeEventHandler}
+                            required
                         />
                     </div>
 
@@ -124,6 +127,7 @@ function UpdateEngineeringData() {
                             name='new_event'
                             value={formData.new_event}
                             onChange={changeEventHandler}
+                            required
                         />
 
                         <TextField
@@ -134,6 +138,7 @@ function UpdateEngineeringData() {
                             name='lates_news'
                             value={formData.lates_news}
                             onChange={changeEventHandler}
+                            required
                         />
                     </div>
                     <label className='intro-of-college'>Introduction:</label>
@@ -143,10 +148,11 @@ function UpdateEngineeringData() {
                         name="introduction"
                         value={formData.introduction}
                         onChange={changeEventHandler}
+                        required
                     />
                     <p style={{marginTop:"12px"}}>Upload Logo:</p>
                     <div className='upload'>
-                        <input type="file" {...register("avatar")} style={{ cursor: "pointer" }} />
+                        <input id='uploadFile' type="file" {...register("avatar")} style={{ cursor: "pointer" }} required/>
                     </div>
                     <Button type='submit' variant="contained">Submit</Button>
                 </form>

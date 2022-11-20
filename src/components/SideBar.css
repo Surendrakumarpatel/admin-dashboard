@@ -1,0 +1,19 @@
+.topbar{
+    font-family: 'Open Sans', sans-serif;
+    margin: 1rem 0 1.5rem 0;
+}
+.topbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.icons{
+    color:#fff;
+}
+
+.postData{
+    width: 85vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -75,6 +75,7 @@ const {register, handleSubmit} = useForm();
             web_link: "",
             status:"0"
         })
+        document.getElementById('uploadFile').value = "";
     }
     const goEngData = ()=>{
          navigate("/dashboard/counselling/engineering/engData");
@@ -100,6 +101,7 @@ const {register, handleSubmit} = useForm();
                         name='college_name'
                         value={formData.college_name}
                         onChange={changeEventHandler}
+                        required
                     />
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -109,6 +111,7 @@ const {register, handleSubmit} = useForm();
                         name='web_link'
                         value={formData.web_link}
                         onChange={changeEventHandler}
+                        required
                     />
                 </div>
 
@@ -121,6 +124,7 @@ const {register, handleSubmit} = useForm();
                         name='new_event'
                         value={formData.new_event}
                         onChange={changeEventHandler}
+                        required
                     />
 
                     <TextField
@@ -131,6 +135,7 @@ const {register, handleSubmit} = useForm();
                         name='lates_news'
                         value={formData.lates_news}
                         onChange={changeEventHandler}
+                        required
                     />
                 </div>
                 <label className='intro-of-college'>Introduction:</label>
@@ -140,10 +145,11 @@ const {register, handleSubmit} = useForm();
                     name="introduction"
                     value={formData.introduction}
                     onChange={changeEventHandler}
+                    required
                 />
                 <p style={{marginTop:"12px"}}>Upload Logo:</p>
                 <div className='upload'>
-                    <input type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                    <input id='uploadFile' type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg" required/>
                 
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>

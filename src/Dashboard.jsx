@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LeftSidebar from './components/LeftSidebar';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import UserData from './pages/home/UserData';
 // application 
 
@@ -44,63 +44,70 @@ import BannerData from './pages/banner/BannerData';
 import UpdateTestimonial from './pages/testimonial/UpdateTestimonial';
 import UpdateEngineeringData from './pages/application/UpdateEngineeringData';
 import LoginUserInfo from './pages/loginuserdata/LoginUserInfo';
-
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('TOKEN');
+        if (!token) {
+            navigate("/");
+        }
+    }, [])
+
     return (
         <div>
-            {/* <Router> */}
-                <LeftSidebar>
-                    <Routes>
-                        <Route path="/userdata" element={<UserData />} />
-                        {/* application */}
-                        {/* Engineering Update */}
-                        <Route path="/application/engineering/*" element={<ApplicationEngineering />} />
-                        <Route path="/application/engineering/engineeringData" element={<EngineeringData />} />
-                        <Route path="/application/engineering/update" element={<UpdateEngineeringData />} />
-                        {/* Medical Update */}
-                        <Route path="/application/medical/update" element={<UpdateMedicalData />} />
-                        <Route path="/application/medical" element={<ApplicationMedical />} />
-                        <Route path="/application/medical/medicalData" element={<MedicalData />} />
+            <LeftSidebar>
+                <Routes>
+                    <Route path="/userdata" element={<UserData />} />
+                    {/* application */}
+                    {/* Engineering Update */}
+                    <Route path="/application/engineering/*" element={<ApplicationEngineering />} />
+                    <Route path="/application/engineering/engineeringData" element={<EngineeringData />} />
+                    <Route path="/application/engineering/update" element={<UpdateEngineeringData />} />
+                    {/* Medical Update */}
+                    <Route path="/application/medical/update" element={<UpdateMedicalData />} />
+                    <Route path="/application/medical" element={<ApplicationMedical />} />
+                    <Route path="/application/medical/medicalData" element={<MedicalData />} />
 
-                        {/* admit card */}
-                        <Route path="/admitcard/engineering/update" element={<UpdateACEngineeringData />} />
-                        <Route path="/admitcard/medical/update" element={<UpdateACMedicalData />} />
-                        <Route path="/admitcard/engineering" element={<AdmitCardEngineering />} />
-                        <Route path="/admitcard/medical" element={<AdmitCardMedical />} />
-                        <Route path="/admitcard/engineering/EngData" element={<AdmitCardEngineeringData />} />
-                        <Route path="/admitcard/medical/MedData" element={<AdmitCardMedicalData />} />
-                        {/* result */}
-                        <Route path="/result/medical/update" element={<UpdateResultMedicalData />} />
-                        <Route path="/result/engineering" element={<ResultEngineering />} />
-                        <Route path="/result/engineering/update" element={<UpdateResultEngineeringData />} />
-                        <Route path="/result/medical" element={<ResultMedical />} />
-                        <Route path="/result/engineering/EngData" element={<ResultEngineeringData />} />
-                        <Route path="/result/medical/MedData" element={<ResultMedicalData />} />
-                        {/* counselling */}
-                        <Route path="/counselling/engineering/update" element={<CounsellingEngineeringUpdate />} />
-                        <Route path="/counselling/medical/update" element={<CounsellingMedicalUpdate />} />
-                        <Route path="/counselling/engineering" element={<CounsellingEngineering />} />
-                        <Route path="/counselling/medical" element={<CounsellingMedical />} />
-                        <Route path="/counselling/engineering/engData" element={<CounsellingEngineeringData />} />
-                        <Route path="/counselling/medical/medData" element={<CounsellingMedicalData />} />  
-                        {/* testimonial */}
-                          {/* update */}
-                        <Route path="/testimonial/updatetestimonial" element={<UpdateTestimonial />} />
-                        <Route path="/testimonial" element={<Testimonial />} />
-                        <Route path="/testimonial/testimonialData" element={<TestimonialData />} />
+                    {/* admit card */}
+                    <Route path="/admitcard/engineering/update" element={<UpdateACEngineeringData />} />
+                    <Route path="/admitcard/medical/update" element={<UpdateACMedicalData />} />
+                    <Route path="/admitcard/engineering" element={<AdmitCardEngineering />} />
+                    <Route path="/admitcard/medical" element={<AdmitCardMedical />} />
+                    <Route path="/admitcard/engineering/EngData" element={<AdmitCardEngineeringData />} />
+                    <Route path="/admitcard/medical/MedData" element={<AdmitCardMedicalData />} />
+                    {/* result */}
+                    <Route path="/result/medical/update" element={<UpdateResultMedicalData />} />
+                    <Route path="/result/engineering" element={<ResultEngineering />} />
+                    <Route path="/result/engineering/update" element={<UpdateResultEngineeringData />} />
+                    <Route path="/result/medical" element={<ResultMedical />} />
+                    <Route path="/result/engineering/EngData" element={<ResultEngineeringData />} />
+                    <Route path="/result/medical/MedData" element={<ResultMedicalData />} />
+                    {/* counselling */}
+                    <Route path="/counselling/engineering/update" element={<CounsellingEngineeringUpdate />} />
+                    <Route path="/counselling/medical/update" element={<CounsellingMedicalUpdate />} />
+                    <Route path="/counselling/engineering" element={<CounsellingEngineering />} />
+                    <Route path="/counselling/medical" element={<CounsellingMedical />} />
+                    <Route path="/counselling/engineering/engData" element={<CounsellingEngineeringData />} />
+                    <Route path="/counselling/medical/medData" element={<CounsellingMedicalData />} />
+                    {/* testimonial */}
+                    {/* update */}
+                    <Route path="/testimonial/updatetestimonial" element={<UpdateTestimonial />} />
+                    <Route path="/testimonial" element={<Testimonial />} />
+                    <Route path="/testimonial/testimonialData" element={<TestimonialData />} />
 
-                        {/* Banner */}
-                        <Route path="/banner/update" element={<BannerUpdateData />} />
-                        <Route path="/banner" element={<Banner />} />
-                        <Route path="/banner/bannerData" element={<BannerData />} />
+                    {/* Banner */}
+                    <Route path="/banner/update" element={<BannerUpdateData />} />
+                    <Route path="/banner" element={<Banner />} />
+                    <Route path="/banner/bannerData" element={<BannerData />} />
 
-                        {/* LoginUserInfo */}
-                        <Route path="/userinfo" element={<LoginUserInfo/>} />
-                        <Route path="*" element={<h1>Welcome to Admin Portal</h1>} />
-                    </Routes>
-                </LeftSidebar>
-            {/* </Router> */}
+                    {/* LoginUserInfo */}
+                    <Route path="/userinfo" element={<LoginUserInfo />} />
+                    <Route path="*" element={<h1>Welcome to Admin Portal</h1>} />
+                </Routes>
+            </LeftSidebar>
         </div>
     )
 }

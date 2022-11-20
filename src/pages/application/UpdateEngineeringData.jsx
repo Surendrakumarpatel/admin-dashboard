@@ -90,6 +90,7 @@ function UpdateEngineeringData() {
             college_category: "",
             apply_link: ""
         })
+        document.getElementById('uploadFile').value = "";
     }
     const goEngDataPage = ()=>{
         navigate("/dashboard/application/engineering/engineeringData");
@@ -114,6 +115,7 @@ function UpdateEngineeringData() {
                         name='college_name'
                         value={formData.college_name}
                         onChange={changeEventHandler}
+                        required
                     />
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -123,6 +125,7 @@ function UpdateEngineeringData() {
                         name='college_address'
                         value={formData.college_address}
                         onChange={changeEventHandler}
+                        required
                     />
 
                 </div>
@@ -136,6 +139,7 @@ function UpdateEngineeringData() {
                         name='news_event'
                         value={formData.news_event}
                         onChange={changeEventHandler}
+                        required
                     />
 
                     <TextField
@@ -146,6 +150,7 @@ function UpdateEngineeringData() {
                         name='latest_news'
                         value={formData.latest_news}
                         onChange={changeEventHandler}
+                        required
                     />
                 </div>
 
@@ -158,6 +163,7 @@ function UpdateEngineeringData() {
                         name='apply_link'
                         value={formData.apply_link}
                         onChange={changeEventHandler}
+                        required
                     />
                     <TextField
                         id="standard-select-currency"
@@ -168,6 +174,7 @@ function UpdateEngineeringData() {
                         onChange={changeEventHandler}
                         helperText="Please select your college category"
                         variant="standard"
+                        required
                     >
                         <MenuItem value="Government">Government</MenuItem>
                         <MenuItem value="Private">Private</MenuItem>
@@ -183,6 +190,7 @@ function UpdateEngineeringData() {
                         name='Last_date'
                         value={formData.Last_date}
                         onChange={changeEventHandler}
+                        required
                     />
 
                 </div>
@@ -194,11 +202,11 @@ function UpdateEngineeringData() {
                     name="Introduction"
                     value={formData.Introduction}
                     onChange={changeEventHandler}
+                    required
                 />
                 <p style={{marginTop:"12px"}}>Upload Logo:</p>
                 <div className='upload'>
-                    <input type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
-                
+                    <input id='uploadFile' type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg" required/>
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>

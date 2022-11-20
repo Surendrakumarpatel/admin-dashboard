@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import Button from "@mui/material/Button";
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import axios from "axios";
@@ -17,6 +17,7 @@ function Banner() {
     const [image, setImage] = useState({
         img:"",
     });
+    const [bannerValue, setBannerValue] = useState([]);
 
     const showImage = (e) =>{
         console.log('====================================');
@@ -31,7 +32,8 @@ function Banner() {
 
     const { register, handleSubmit } = useForm();
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data,e) => {
+        e.preventDefault();
         console.log(data.avatar[0]);
         const formData = new FormData();
         formData.append("avatar", data.avatar[0]);
@@ -53,11 +55,19 @@ function Banner() {
         }).catch((err)=>{
             console.log(err);
         });
-         
+        document.getElementById('uploadFile').value = "";
     };
     const goToBannerData = ()=>{
         navigate("/dashboard/banner/bannerData");
     }
+
+    useEffect(() => {
+        axios.get(`${BaseUrl}/getBannerAPI`)
+            .then((getData) => {
+                console.log(getData.data);
+                setBannerValue(getData.data);
+            })
+    },);
      
     return (
         <>
@@ -71,9 +81,13 @@ function Banner() {
             <form onSubmit={handleSubmit(onSubmit)}>
             <p style={{marginTop:"12px"}}>Banner Upload:</p>
                 <div className='upload' >
-                  <input onChange={showImage} type="file"  {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                  <input onChange={showImage} id="uploadFile" type="file"  {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg" required/>
                 </div>
-                <Button type='submit' variant="contained">Submit</Button>
+                {
+                    bannerValue.length === 0 ? 
+                    <Button type='submit' variant="contained">Submit</Button> :
+                    <Button disabled type='submit' variant="contained">Submit</Button>
+                }
             </form>
         </div>
         <ToastContainer/>

@@ -1,0 +1,29 @@
+.dialog-image-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dialog-image{
+    width: 150px;
+    height:150px;
+    border-radius: 5px;
+    
+}
+.style-7{
+    height:700px;
+    overflow-y:scroll;
+}
+.style-7::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+.style-7::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear,
+            left bottom,
+            left top,
+            color-stop(0.44, rgb(122, 153, 217)),
+            color-stop(0.72, rgb(73, 125, 189)),
+            color-stop(0.86, rgb(28, 58, 148)));
+}

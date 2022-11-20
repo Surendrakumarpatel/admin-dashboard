@@ -73,6 +73,7 @@ function UpdateTestimonial() {
             feedback: "",
             student_image: ''
         })
+        document.getElementById('uploadFile').value = "";
     }
     const goTestimonialPage = () => {
         navigate("/dashboard/testimonial/testimonialData");
@@ -120,7 +121,7 @@ function UpdateTestimonial() {
                     />
                     <p style={{marginTop:"12px"}}>Student Image:</p>
                     <div className='upload'>
-                        <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                        <input id='uploadFile'  type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
                     </div>
                     <Button type='submit' variant="contained">Submit</Button>
                 </form>

@@ -72,6 +72,7 @@ function Medical() {
             college_category: "",
             web_link: ""
         })
+        document.getElementById('uploadFile').value = "";
     }
     const goMedResultDataPage = ()=>{
         navigate("/dashboard/result/medical/MedData");
@@ -96,6 +97,7 @@ function Medical() {
                         name='college_name'
                         value={formData.college_name}
                         onChange={changeEventHandler}
+                        required
                     />
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -105,6 +107,7 @@ function Medical() {
                         name='college_address'
                         value={formData.college_address}
                         onChange={changeEventHandler}
+                        required
                     />
 
                 </div>
@@ -117,6 +120,7 @@ function Medical() {
                         name='web_link'
                         value={formData.web_link}
                         onChange={changeEventHandler}
+                        required
                     />
                     <TextField
                         id="standard-select-currency"
@@ -127,6 +131,7 @@ function Medical() {
                         onChange={changeEventHandler}
                         helperText="Please select your currency"
                         variant="standard"
+                        required
                     >
                         <MenuItem value="Government">Government</MenuItem>
                         <MenuItem value="Private">Private</MenuItem>
@@ -134,7 +139,7 @@ function Medical() {
                 </div>
                 <p style={{marginTop:"12px"}}>Upload Logo:</p>
                 <div className='upload'>
-                    <input className="hide_file" type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                    <input id='uploadFile' type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg" required/>
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>

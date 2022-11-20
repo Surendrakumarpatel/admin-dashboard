@@ -83,6 +83,7 @@ function Medical() {
             college_category: "",
             apply_link: ""
         })
+        document.getElementById('uploadFile').value = "";
     }
     const goMedDataPage = ()=>{
        navigate("/dashboard/application/medical/medicalData");
@@ -108,6 +109,7 @@ function Medical() {
                         name='college_name'
                         value={formData.college_name}
                         onChange={changeEventHandler}
+                        required
                     />
                     <TextField
                         style={{ margin: "0.5rem" }}
@@ -117,6 +119,7 @@ function Medical() {
                         name='college_address'
                         value={formData.college_address}
                         onChange={changeEventHandler}
+                        required
                     />
 
                 </div>
@@ -130,6 +133,7 @@ function Medical() {
                         name='news_event'
                         value={formData.news_event}
                         onChange={changeEventHandler}
+                        required
                     />
 
                     <TextField
@@ -140,6 +144,7 @@ function Medical() {
                         name='latest_news'
                         value={formData.latest_news}
                         onChange={changeEventHandler}
+                        required
                     />
                 </div>
 
@@ -152,6 +157,7 @@ function Medical() {
                         name='apply_link'
                         value={formData.apply_link}
                         onChange={changeEventHandler}
+                        required
                     />
                     <TextField
                         id="standard-select-currency"
@@ -162,6 +168,7 @@ function Medical() {
                         onChange={changeEventHandler}
                         helperText="Please select your college category"
                         variant="standard"
+                        required
                     >
                         <MenuItem value="Government">Government</MenuItem>
                         <MenuItem value="Private">Private</MenuItem>
@@ -177,6 +184,7 @@ function Medical() {
                         name='Last_date'
                         value={formData.Last_date}
                         onChange={changeEventHandler}
+                        required
                     />
 
                 </div>
@@ -188,10 +196,11 @@ function Medical() {
                     name="Introduction"
                     value={formData.Introduction}
                     onChange={changeEventHandler}
+                    required
                 />
                 <p style={{marginTop:"12px"}}>Upload Logo:</p>
                 <div className='upload'>
-                    <input type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                    <input id='uploadFile' type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg" required/>
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>

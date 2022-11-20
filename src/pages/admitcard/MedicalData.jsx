@@ -25,8 +25,8 @@ function MedicalData() {
                 setApiData(getData.data);
             })
     },);
-    const del = async (id)=>{
-        await axios.post(`${BaseUrl}/deleteAdmitCardMedAPI?id=${id}`).then((res,req)=>{
+    const del = async (id) => {
+        await axios.post(`${BaseUrl}/deleteAdmitCardMedAPI?id=${id}`).then((res, req) => {
             toast.success('Deleted Successfully!', {
                 position: "top-center",
                 autoClose: 1000,
@@ -36,82 +36,82 @@ function MedicalData() {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-            });    
-    }).catch((err)=>{
+            });
+        }).catch((err) => {
             console.log(err);
             alert("Server down please try after sometime!")
         });
     }
-    const openForm = (id,college_name,college_logo,college_address,college_category,web_link) => {
-        navigate('/dashboard/admitcard/medical/update',{state:{
-            id:id,
-            college_name:college_name,
-            college_logo:college_logo,
-            college_address:college_address,
-            college_category:college_category,
-            web_link:web_link
-        }});
-    } 
+    const openForm = (id, college_name, college_logo, college_address, college_category, web_link) => {
+        navigate('/dashboard/admitcard/medical/update', {
+            state: {
+                id: id,
+                college_name: college_name,
+                college_logo: college_logo,
+                college_address: college_address,
+                college_category: college_category,
+                web_link: web_link
+            }
+        });
+    }
     return (
         <>
-        <div className='engineeringData'>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow className='header'>
-                            <TableCell style={{ color: "#fff", }} align='center'>id</TableCell>
-                            <TableCell style={{ color: "#fff", }} align='center'>College Name</TableCell>
-                            <TableCell style={{ color: "#fff", }} align="center">College Address</TableCell>
-                            <TableCell style={{ color: "#fff", }} align='center'>Category</TableCell>
-                            <TableCell style={{ color: "#fff", }} align="center">Last Date</TableCell>
-                            <TableCell style={{ color: "#fff", }} align="center">Action</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            apiData.map((items) => {
-                                return (
-                                    <TableRow
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell align="center">{items.id}</TableCell>
-                                        <TableCell align='center'>{items.college_name}</TableCell>
-                                        <TableCell align="center">{items.college_address}</TableCell>
-                                        <TableCell align="center">{items.college_category}</TableCell>
-                                        <TableCell align="center">{items.Last_date}</TableCell>
-                                        <TableCell align="center">
-                                            <DeleteForeverIcon titleAccess='Delete' onClick={()=> del(items.id)}
-                                            style={{
-                                                color: "red",
-                                                cursor: "pointer"
-                                            }}
-                                        />
-                                         <CreateIcon titleAccess='Update' onClick={() => openForm(
+            <div className='engineeringData'>
+                <TableContainer className='style-7' component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow className='header'>
+                                <TableCell style={{ color: "#fff", }} align='center'>id</TableCell>
+                                <TableCell style={{ color: "#fff", }} align='center'>College Name</TableCell>
+                                <TableCell style={{ color: "#fff", }} align="center">College Address</TableCell>
+                                <TableCell style={{ color: "#fff", }} align='center'>Category</TableCell>
+                                <TableCell style={{ color: "#fff", }} align="center">Action</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                apiData.map((items) => {
+                                    return (
+                                        <TableRow
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell align="center">{items.id}</TableCell>
+                                            <TableCell align='center'>{items.college_name}</TableCell>
+                                            <TableCell align="center">{items.college_address}</TableCell>
+                                            <TableCell align="center">{items.college_category}</TableCell>
+                                            <TableCell align="center">
+                                                <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
+                                                    style={{
+                                                        color: "red",
+                                                        cursor: "pointer"
+                                                    }}
+                                                />
+                                                <CreateIcon titleAccess='Update' onClick={() => openForm(
                                                     items.id,
                                                     items.college_name,
                                                     items.college_logo,
                                                     items.college_address,
                                                     items.college_category,
-                                                    items.web_link                  
-                                                    )}
+                                                    items.web_link
+                                                )}
                                                     style={{
                                                         color: "orange",
                                                         cursor: "pointer",
-                                                        marginLeft:"10px"
+                                                        marginLeft: "10px"
                                                     }}
                                                 />
-                                                </TableCell>
-                                    </TableRow>
-                                )
-                            })
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div>
-        <ToastContainer />
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                })
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+            <ToastContainer />
         </>
-        
+
     )
 }
 

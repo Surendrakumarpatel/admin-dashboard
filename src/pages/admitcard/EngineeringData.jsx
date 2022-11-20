@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import "./EngineeringData.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -57,7 +56,7 @@ function EngineeringData() {
     return (
         <>
             <div className='engineeringData'>
-                <TableContainer component={Paper}>
+                <TableContainer className='style-7' component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow className='header'>
@@ -65,7 +64,6 @@ function EngineeringData() {
                                 <TableCell style={{ color: "#fff", }} align='center'>College Name</TableCell>
                                 <TableCell style={{ color: "#fff", }} align="center">College Address</TableCell>
                                 <TableCell style={{ color: "#fff", }} align='center'>Category</TableCell>
-                                <TableCell style={{ color: "#fff", }} align="center">Last Date</TableCell>
                                 <TableCell style={{ color: "#fff", }} align="center">Action</TableCell>
                             </TableRow>
                         </TableHead>
@@ -80,7 +78,6 @@ function EngineeringData() {
                                             <TableCell align='center'>{items.college_name}</TableCell>
                                             <TableCell align="center">{items.college_address}</TableCell>
                                             <TableCell align="center">{items.college_category}</TableCell>
-                                            <TableCell align="center">{items.Last_date}</TableCell>
                                             <TableCell align="center">
                                                 <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
                                                     style={{

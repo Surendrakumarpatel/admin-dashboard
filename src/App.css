@@ -2,11 +2,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+   
 }
+/* .App{
+  background-color: #428bd4;
+} */
 
 .main-container {
   display: flex;
   font-family: 'Open Sans', sans-serif;
+   
 }
 main {
   padding: 10px;
@@ -28,7 +33,7 @@ a{
   background-color: #1976d2;
   color: white;
   height: 100vh;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .top_section {

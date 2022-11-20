@@ -18,6 +18,7 @@ function UpdateBannerData() {
     const location = useLocation(); 
     const id = location.state.id;
     const { register, handleSubmit } = useForm();
+
     const onSubmit = async (data) => {
         console.log(data.avatar[0]);
         const formData = new FormData();
@@ -44,6 +45,7 @@ function UpdateBannerData() {
         }).catch((err)=>{
             console.log(err);
         });
+        document.getElementById('uploadFile').value = "";
          
     };
     const goToBannerData = ()=>{
@@ -62,7 +64,7 @@ function UpdateBannerData() {
             <form onSubmit={handleSubmit(onSubmit)}>
             <p style={{marginTop:"12px"}}>Banner Upload:</p>
                 <div className='upload' >
-                  <input type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                  <input id='uploadFile' type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg" required/>
                 </div>
                 <Button type='submit' variant="contained">Submit</Button>
             </form>

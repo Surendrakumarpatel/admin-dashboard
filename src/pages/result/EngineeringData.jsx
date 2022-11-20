@@ -53,7 +53,7 @@ function EngineeringData() {
     return (
         <>
             <div className='engineeringData'>
-                <TableContainer component={Paper}>
+                <TableContainer className='style-7' component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow className='header'>
@@ -61,7 +61,6 @@ function EngineeringData() {
                                 <TableCell style={{ color: "#fff", }} align='center'>College Name</TableCell>
                                 <TableCell style={{ color: "#fff", }} align="center">College Address</TableCell>
                                 <TableCell style={{ color: "#fff", }} align='center'>Category</TableCell>
-                                <TableCell style={{ color: "#fff", }} align="center">Last Date</TableCell>
                                 <TableCell style={{ color: "#fff", }} align="center">Action</TableCell>
                             </TableRow>
                         </TableHead>

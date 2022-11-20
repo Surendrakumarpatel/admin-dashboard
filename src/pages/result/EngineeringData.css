@@ -1,0 +1,13 @@
+.engineeringData{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+.header{
+   text-transform: uppercase;
+   background-color: #1976d2;
+  font-weight: bold;
+ 
+}
+ 

@@ -1,7 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaHome, FaLock,FaUser } from "react-icons/fa";
-import { GrAnnounce} from 'react-icons/gr';
-import {VscFeedback} from 'react-icons/vsc';
+import { FaBars, FaHome} from "react-icons/fa";
 import {MdEngineering} from 'react-icons/md';
 import {FaHandHoldingMedical} from 'react-icons/fa';
 import RateReviewIcon from '@mui/icons-material/RateReview';
@@ -9,11 +7,13 @@ import {RiShieldStarFill} from "react-icons/ri";
 import {HiDocumentDownload} from "react-icons/hi";
 import CampaignIcon from '@mui/icons-material/Campaign';
 import {BsFillFileEarmarkImageFill} from 'react-icons/bs';
-import {AiOutlineAppstore,AiTwotoneFileExclamation } from "react-icons/ai";
+import {AiOutlineAppstore} from "react-icons/ai";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
 import PersonIcon from '@mui/icons-material/Person';
+import Button from '@mui/material/Button';
+import {useNavigate} from "react-router-dom";
 
 const routes = [
   {
@@ -115,26 +115,17 @@ const routes = [
  
 ];
 
-const LeftSidebar = ({ children }) => {
+const LeftSidebar = ({ children}) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const inputAnimation = {
-    hidden: {
-      width: 0,
-      padding: 0,
-      transition: {
-        duration: 0.2,
-      },
-    },
-    show: {
-      width: "140px",
-      padding: "5px 15px",
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
-
+  
+  const logOut = () =>{
+     localStorage.clear();
+     navigate("/");
+  }
+  
+  
   const showAnimation = {
     hidden: {
       width: 0,
@@ -158,14 +149,13 @@ const LeftSidebar = ({ children }) => {
         <motion.div
           animate={{
             width: isOpen ? "200px" : "45px",
-
             transition: {
               duration: 0.5,
               type: "spring",
               damping: 10,
             },
           }}
-          className={`sidebar `}
+          className={`sidebar`}
         >
           <div className="top_section">
             <AnimatePresence>
@@ -224,6 +214,20 @@ const LeftSidebar = ({ children }) => {
                 </NavLink>
               );
             })}
+            {
+              isOpen ? (<Button onClick= {logOut} variant="contained" style={{
+            backgroundColor:"white",
+            width:"50%",
+            marginLeft:"1rem",
+            color:"#1976d2",
+           }}>Logout</Button>) : (<Button variant="contained" style={{
+            backgroundColor:"white",
+            width:"50%",
+            color:"#1976d2",
+            display:"none"
+           }}>Logout</Button>)
+            }
+           
           </section>
         </motion.div>
         <main>{children}</main>

@@ -23,11 +23,11 @@ function Testimonial() {
         feedback: "",
         student_image: ""
     });
+   
     const changeEventHandler = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setTestimonial({ ...testimonial, [name]: value });
-
     }
      
     const submitData = async (data, e) => {
@@ -68,6 +68,7 @@ function Testimonial() {
             feedback: "",
             student_image: ""
         })
+        document.getElementById('uploadFile').value = "";
     }
     const goTestimonialPage = () => {
         navigate("/dashboard/testimonial/testimonialData");
@@ -92,7 +93,7 @@ function Testimonial() {
                             name='name'
                             value={testimonial.name}
                             onChange={changeEventHandler}
-                            
+                            required
                         />
                         <TextField
                             style={{ margin: "0.5rem" }}
@@ -102,7 +103,7 @@ function Testimonial() {
                             name='college_name'
                             value={testimonial.college_name}
                             onChange={changeEventHandler}
-                             
+                            required 
                         />
                     </div>
                     <label className='intro-of-college'>Feedback:</label>
@@ -112,13 +113,15 @@ function Testimonial() {
                         name="feedback"
                         value={testimonial.feedback}
                         onChange={changeEventHandler}
+                        required
                         
                     />
                     <p style={{marginTop:"12px"}}>Student Image:</p>
                     <div className='upload'>
-                        <input  type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg"/>
+                        <input id='uploadFile'  type="file" {...register("avatar")} style={{cursor:"pointer"}} accept=".jpeg,.png , .jpg" required/>
                     </div>
                     <Button type='submit' variant="contained">Submit</Button>
+                   
                 </form>
             </div>
             <ToastContainer />

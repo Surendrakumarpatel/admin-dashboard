@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./LoginUserInfo.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,6 +12,12 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BaseUrl } from '../baseurl/baseurl';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const url = `${BaseUrl}/getUserLoginInfo`;
 
@@ -39,12 +46,20 @@ function LoginUserInfo() {
     //         alert("Server down please try after sometime!")
     //     });
     // }
-
+    const [open, setOpen] = React.useState(false);
+    const [image, setImage] = React.useState();
+    const showImage = (img) => {
+        setOpen(true);
+        setImage(img);
+    }
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     return (
         <>
-            <div className='engineeringData'>
-                <TableContainer component={Paper}>
+            <div className='engineeringData' >
+                <TableContainer className='style-7' component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow className='header'>
@@ -66,10 +81,10 @@ function LoginUserInfo() {
                                             <TableCell align="center">{items.id}</TableCell>
                                             <TableCell align='center'>{items.name}</TableCell>
                                             <TableCell align="center">{items.email}</TableCell>
-                                            <TableCell align="center">{items.image_url}</TableCell>
+                                            <TableCell style={{color:"blue",cursor:"pointer"}} align="center" onClick={()=>showImage(items.image_url)}>Show Image</TableCell>
                                             <TableCell align="center">{items.phone}</TableCell>
                                             {/* <TableCell align="center" > */}
-                                                {/* <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
+                                            {/* <DeleteForeverIcon titleAccess='Delete' onClick={() => del(items.id)}
                                                     style={{
                                                         color: "red",
                                                         cursor: "pointer"
@@ -84,6 +99,30 @@ function LoginUserInfo() {
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+                {/* Dialog */}
+                <div>
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">
+                            {"User's Image"}
+                        </DialogTitle>
+                        <DialogContent className="dialog-image-center">
+                            <DialogContentText id="alert-dialog-description">
+                                <img className='dialog-image' src={`${image}`} />
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose} >
+                                Ok
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
             </div>
             <ToastContainer />
         </>
