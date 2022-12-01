@@ -9,6 +9,7 @@ import { BaseUrl } from '../baseurl/baseurl';
 const url = `${BaseUrl}/adminLogin`;
  
 function Login({setUser,setLoggedIn}) {
+
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -32,7 +33,7 @@ function Login({setUser,setLoggedIn}) {
             password:password
         })).then((res,req)=>{
             setUser(res.data);
-            setLoggedIn(true)
+            setLoggedIn(true);
           if(res.data === 200){
               localStorage.setItem("TOKEN",res.data);
               navigate("/dashboard");

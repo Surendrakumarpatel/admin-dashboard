@@ -18,6 +18,7 @@ const uploadUrl = `${BaseUrlImg}/careerBanaoImages/upload.php`;
 function Engineering() {
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
+
     const [formData, setFormData] = React.useState({
         college_name: "",
         college_logo: "",
@@ -34,7 +35,7 @@ function Engineering() {
 
     const submitData = async (data,e) => {
         e.preventDefault();
-        console.log(data.avatar[0]);
+       
         const formValue = new FormData();
         formValue.append("avatar", data.avatar[0]);
 
@@ -43,8 +44,7 @@ function Engineering() {
             body: formValue,
         }).then((res) => res.json());
 
-        console.log(formData);
-
+        
         await axios.post(url, JSON.stringify({
         college_name: formData.college_name,
         college_logo: res.url,

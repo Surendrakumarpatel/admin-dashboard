@@ -116,12 +116,13 @@ const routes = [
 ];
 
 const LeftSidebar = ({ children}) => {
+
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   
   const logOut = () =>{
-     localStorage.clear();
+     localStorage.clear(); 
      navigate("/");
   }
   
